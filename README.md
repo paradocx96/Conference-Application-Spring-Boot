@@ -28,3 +28,15 @@ git checkout BranchName
 
 ### > Create New Branch  
 git checkout -b BranchName  
+
+### > Update current Branch  
+git pull  
+
+### > Check commit history  
+git log  
+
+### > Check availability for commit  
+git status  
+
+### > Check Git Repository Details  
+git remote show origin  
