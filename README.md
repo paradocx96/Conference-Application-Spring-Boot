@@ -3,17 +3,28 @@
 
 ## Git Guide  
 
-### > First Time  
-git init  
+### > Git Clone  
+git clone https://github.com/paradocx96/Conference-Application-Spring-Boot.git  
+cd Conference-Application-Spring-Boot  
+
+### > Create a Brach and Commit from that Branch  
 git checkout -b BranchName  
 git add .  
-git commit -m "Initial commit"  
+git commit -m "Commit Message"  
 git branch -M BranchName  
-git remote add origin https://github.com/paradocx96/Conference-Application-Spring-Boot.git  
 git push -u origin BranchName  
   
 ### > After Time  
 git add .  
-git commit -m "After commit"  
+git commit -m "Commit Message"  
 git branch -M BranchName  
-git push -u origin BranchName  
+git push -u origin BranchName
+
+### > Check available Braches  
+git branch  
+
+### > Switch between Branches  
+git checkout BranchName  
+
+### > Create New Branch  
+git checkout -b BranchName  
