@@ -7,7 +7,7 @@
 git clone https://github.com/paradocx96/Conference-Application-Spring-Boot.git  
 cd Conference-Application-Spring-Boot  
 
-### > Create a Brach and Commit from that Branch  
+### > Create a Branch and Commit from that Branch  
 git checkout -b BranchName  
 git add .  
 git commit -m "Commit Message"  
@@ -20,7 +20,7 @@ git commit -m "Commit Message"
 git branch -M BranchName  
 git push -u origin BranchName
 
-### > Check available Braches  
+### > Check available Branches  
 git branch  
 
 ### > Switch between Branches  
