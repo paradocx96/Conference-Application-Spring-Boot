@@ -53,26 +53,77 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 	public HttpEntity<byte[]> getFileById(String id) {
 		//instantiate object
 		ResearchPaperModel researchPaperModel = new ResearchPaperModel();
+		
+		//find the object of research paper by id
 		researchPaperModel = researchPaperMongoRepo.findById(id).get();
+		
+		//get the research paper as a BSON binary object
 		Binary researchPaper = researchPaperModel.getResearchPaper();
+		
+		//set the title as file name 
 		String fileName = researchPaperModel.getTitle();
 		
 		if(researchPaper != null) {
 			HttpHeaders headers = new HttpHeaders();
+			
+			//set the content type to octet stream
 			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
 			
+			//set content disposition
 			ContentDisposition contentDisposition = ContentDisposition.builder("inline")
 					.filename(fileName).build();
 			
+			//set the content disposition to headers
 			headers.setContentDisposition(contentDisposition);
 			
+			//return the byte array as an http entity
 			return new HttpEntity<byte[]>(researchPaper.getData(),headers);
 		}
 		else {
+			//error if the retrieved research paper is null.
 			System.out.println("Retrieved research paper document is null.");
 			return null;
 		}
 		
+	}
+
+	@Override
+	public HttpEntity<byte[]> getFileByUsername(String username) {
+		//instantiate object
+		ResearchPaperModel researchPaperModel = new ResearchPaperModel();
+		
+		//get the research paper by username
+		researchPaperModel = researchPaperMongoRepo.findByUsername(username);
+		
+		
+		//get the document as BSON a binary object
+		Binary researchPaper = researchPaperModel.getResearchPaper();
+		
+		//set the title as file name
+		String fileName = researchPaperModel.getTitle();
+		
+		if(researchPaper != null) {
+			
+			HttpHeaders headers = new HttpHeaders();
+			
+			//set the content type to octet stream
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			
+			//set content disposition
+			ContentDisposition contentDisposition = ContentDisposition.builder("inline")
+					.filename(fileName).build();
+			
+			//set the content disposition to headers
+			headers.setContentDisposition(contentDisposition);
+			
+			//return the byte array as an http entity
+			return new HttpEntity<byte[]>(researchPaper.getData(),headers);
+		}
+		else {
+			//error if the retrieved research paper is null.
+			System.out.println("Retrieved research paper document is null.");
+			return null;
+		}
 	}
 
 }

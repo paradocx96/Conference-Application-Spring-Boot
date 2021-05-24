@@ -44,5 +44,14 @@ public class ResearchPaperAPI {
 		//the file is returned as per given id
 		return researchPaperDataAdapter.getFileById(id);
 	}
+	
+	//method for retrieving research paper file for given username
+	public HttpEntity<byte[]> getResearchPaperByUser( String username){
+		
+		//the file is returned as per given username
+		return researchPaperDataAdapter.getFileByUsername(username);
+	}
+	
+	//TODO : need a method to extract research paper meta data
 
 }

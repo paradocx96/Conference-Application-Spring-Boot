@@ -7,5 +7,8 @@ import com.rhna.conference.dal.model.ResearchPaperModel;
 
 @Repository
 public interface ResearchPaperMongoRepository extends MongoRepository<ResearchPaperModel, String> {
+	
+	//use to fetch the paper by the uploaded user.
+	public ResearchPaperModel findByUsername(String username);
 
 }

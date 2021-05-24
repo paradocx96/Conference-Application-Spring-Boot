@@ -11,5 +11,7 @@ public interface ResearchPaperDataAdapter {
 	public String save(ResearchPaper researchPaper, MultipartFile multipartFile) throws IOException;
 	//returns byte array for given id
 	public HttpEntity<byte[]> getFileById (String id);
+	
+	public HttpEntity<byte[]> getFileByUsername (String username);
 
 }
