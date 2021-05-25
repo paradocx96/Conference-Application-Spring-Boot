@@ -4,11 +4,13 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rhna.conference.domain.ResearchPaper;
 import com.rhna.conference.domain.ResearchPaperDataAdapter;
 
+@Service
 public class ResearchPaperAPI {
 	
 	private final ResearchPaperDataAdapter  researchPaperDataAdapter;
