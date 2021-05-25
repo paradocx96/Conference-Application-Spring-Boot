@@ -6,6 +6,7 @@ public class KeyNoteDto {
     private String speakertype;
     private String organization;
     private String description;
+    private String status;
     private String user;
 
     public String getSpeakername() {
@@ -38,6 +39,14 @@ public class KeyNoteDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUser() {

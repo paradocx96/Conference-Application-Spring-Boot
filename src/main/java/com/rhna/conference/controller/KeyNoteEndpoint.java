@@ -30,6 +30,7 @@ public class KeyNoteEndpoint {
         keyNote.setSpeakertype(keyNoteDto.getSpeakertype());
         keyNote.setOrganization(keyNoteDto.getOrganization());
         keyNote.setDescription(keyNoteDto.getDescription());
+        keyNote.setStatus("Inactive");
         keyNote.setUser(keyNoteDto.getUser());
 
         return keyNoteApi.addKeyNote(keyNote);
@@ -56,6 +57,7 @@ public class KeyNoteEndpoint {
         keyNote.setSpeakertype(keyNoteDto.getSpeakertype());
         keyNote.setOrganization(keyNoteDto.getOrganization());
         keyNote.setDescription(keyNoteDto.getDescription());
+        keyNote.setStatus(keyNoteDto.getStatus());
         keyNote.setUser(keyNoteDto.getUser());
 
         return keyNoteApi.updateKeyNote(keyNote);

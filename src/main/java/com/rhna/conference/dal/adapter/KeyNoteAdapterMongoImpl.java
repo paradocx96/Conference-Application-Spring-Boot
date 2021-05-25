@@ -37,6 +37,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
         keyNoteModel.setSpeakertype(keyNote.getSpeakertype());
         keyNoteModel.setOrganization(keyNote.getOrganization());
         keyNoteModel.setDescription(keyNote.getDescription());
+        keyNoteModel.setStatus(keyNote.getStatus());
         keyNoteModel.setUser(keyNote.getUser());
         keyNoteModel.setDatetime(keyNote.getDatetime());
 
@@ -59,6 +60,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
             keyNote.setSpeakertype(keyNoteModel.getSpeakertype());
             keyNote.setOrganization(keyNoteModel.getOrganization());
             keyNote.setDescription(keyNoteModel.getDescription());
+            keyNote.setStatus(keyNoteModel.getStatus());
             keyNote.setUser(keyNoteModel.getUser());
             keyNote.setDatetime(keyNoteModel.getDatetime());
 
@@ -85,6 +87,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
                         .set("speakertype", keyNote.getSpeakertype())
                         .set("organization", keyNote.getOrganization())
                         .set("description", keyNote.getDescription())
+                        .set("status", keyNote.getStatus())
                         .set("user", keyNote.getUser()),
                 KeyNoteModel.class
         );
