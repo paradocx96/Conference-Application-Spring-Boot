@@ -10,6 +10,7 @@ import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.rhna.conference.dal.model.ResearchPaperModel;
@@ -17,6 +18,7 @@ import com.rhna.conference.dal.repository.ResearchPaperMongoRepository;
 import com.rhna.conference.domain.ResearchPaper;
 import com.rhna.conference.domain.ResearchPaperDataAdapter;
 
+@Component
 public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 	
 	private ResearchPaperMongoRepository researchPaperMongoRepo;
