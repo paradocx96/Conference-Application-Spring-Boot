@@ -8,6 +8,7 @@ public class NewsDto {
     private String description;
     private LocalDate date;
     private LocalDateTime datetime;
+    private String status;
     private String user;
 
     public String getDescription() {
@@ -32,6 +33,14 @@ public class NewsDto {
 
     public void setDatetime(LocalDateTime datetime) {
         this.datetime = datetime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUser() {
