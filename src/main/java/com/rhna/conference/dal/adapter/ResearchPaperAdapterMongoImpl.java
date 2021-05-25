@@ -1,3 +1,6 @@
+//IT19014128
+//A.M.W.W.R.L. Wataketiya
+
 package com.rhna.conference.dal.adapter;
 
 import java.io.IOException;
@@ -126,6 +129,13 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 			System.out.println("Retrieved research paper document is null.");
 			return null;
 		}
+	}
+
+	//find research paper model for username
+	@Override
+	public ResearchPaperModel getResearchPaperModelByUsername(String username) {
+		System.out.println("Returning research paper model for username : " +username);
+		return researchPaperMongoRepo.findByUsername(username);
 	}
 
 }

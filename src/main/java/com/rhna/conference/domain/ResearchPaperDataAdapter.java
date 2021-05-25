@@ -1,9 +1,14 @@
+//IT19014128
+//A.M.W.W.R.L. Wataketiya
+
 package com.rhna.conference.domain;
 
 import java.io.IOException;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.rhna.conference.dal.model.ResearchPaperModel;
 
 public interface ResearchPaperDataAdapter {
 	
@@ -13,5 +18,7 @@ public interface ResearchPaperDataAdapter {
 	public HttpEntity<byte[]> getFileById (String id);
 	
 	public HttpEntity<byte[]> getFileByUsername (String username);
+	
+	public ResearchPaperModel getResearchPaperModelByUsername (String username);
 
 }

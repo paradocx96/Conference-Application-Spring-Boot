@@ -1,3 +1,6 @@
+//IT19014128
+//A.M.W.W.R.L. Wataketiya
+
 package com.rhna.conference.domain;
 
 public class ResearchPaper {
