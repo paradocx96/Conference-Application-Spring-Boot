@@ -54,6 +54,12 @@ public class ResearchPaperController {
 		
 	}
 	
+	//method to get the research paper file for a given id
+	@PostMapping(value="downloadById")
+	public HttpEntity<byte[] > getResearchPaperById (@RequestParam("id") String id){
+		return researchPaperAPI.getResearchPaperFileById(id);
+	}
+	
 	//method to get research paper meta data
 	@GetMapping(value="getResearchPaperDetailsByUsername/{username}")
 	public ResearchPaper getResearchPaperDetails( @PathVariable String username) {

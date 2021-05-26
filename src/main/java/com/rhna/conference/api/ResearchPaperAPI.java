@@ -56,7 +56,7 @@ public class ResearchPaperAPI {
 	}
 	
 	//method for retrieving research paper file
-	public HttpEntity<byte[]> getResearchPaperFile (String id){
+	public HttpEntity<byte[]> getResearchPaperFileById (String id){
 		
 		//the file is returned as per given id
 		return researchPaperDataAdapter.getFileById(id);
