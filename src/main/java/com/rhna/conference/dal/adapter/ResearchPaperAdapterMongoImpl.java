@@ -4,7 +4,7 @@
 package com.rhna.conference.dal.adapter;
 
 import java.io.IOException;
-
+import java.util.List;
 
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
@@ -136,6 +136,14 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 	public ResearchPaperModel getResearchPaperModelByUsername(String username) {
 		System.out.println("Returning research paper model for username : " +username);
 		return researchPaperMongoRepo.findByUsername(username);
+	}
+
+	//get all the research paper models
+	@Override
+	public List<ResearchPaperModel> getAllResearchPaperModels() {
+		System.out.println("Returning all models of research papers");
+		List<ResearchPaperModel> researchPaperModelList = researchPaperMongoRepo.findAll();
+		return researchPaperModelList;
 	}
 
 }

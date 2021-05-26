@@ -4,6 +4,8 @@
 package com.rhna.conference.api;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -67,8 +69,8 @@ public class ResearchPaperAPI {
 		return researchPaperDataAdapter.getFileByUsername(username);
 	}
 	
-	//TODO : need a method to extract research paper meta data
 	
+	//get research paper details by username
 	public ResearchPaper getResearchPaperDetails (String username) {
 		
 		//instantiate objects
@@ -88,6 +90,36 @@ public class ResearchPaperAPI {
 		
 		//return the object
 		return researchPaper;
+	}
+	
+	public List<ResearchPaper> getAllResearchPaperDetails (){
+		
+		//instantiate objects
+		List<ResearchPaper> researchPaperList = new ArrayList<ResearchPaper>();
+		List<ResearchPaperModel> researchPaperModelList = new ArrayList<ResearchPaperModel>();
+		
+		//get the research paper model list through the adapter
+		researchPaperModelList = researchPaperDataAdapter.getAllResearchPaperModels();
+		
+		//loop through the research paper mode list
+		for(ResearchPaperModel rpModel : researchPaperModelList) {
+			
+			//instantiate research paper object
+			ResearchPaper researchPaper = new ResearchPaper();
+			
+			//set the attributes from the model object to research paper object
+			researchPaper.setId(rpModel.getId());
+			researchPaper.setUsername(rpModel.getUsername());
+			researchPaper.setEmail(rpModel.getEmail());
+			researchPaper.setTitle(rpModel.getTitle());
+			researchPaper.setStatus(rpModel.getStatus());
+			
+			//add the research paper to the research paper list
+			researchPaperList.add(researchPaper);
+		}
+		
+		//return the research paper list
+		return researchPaperList;
 	}
 
 }

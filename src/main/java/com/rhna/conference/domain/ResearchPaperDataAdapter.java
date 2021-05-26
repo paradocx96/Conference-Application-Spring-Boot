@@ -4,6 +4,7 @@
 package com.rhna.conference.domain;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,5 +21,7 @@ public interface ResearchPaperDataAdapter {
 	public HttpEntity<byte[]> getFileByUsername (String username);
 	
 	public ResearchPaperModel getResearchPaperModelByUsername (String username);
+	
+	public List<ResearchPaperModel> getAllResearchPaperModels ();
 
 }

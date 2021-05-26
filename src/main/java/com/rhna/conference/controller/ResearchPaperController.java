@@ -3,6 +3,8 @@
 
 package com.rhna.conference.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -59,6 +61,14 @@ public class ResearchPaperController {
 		// get research paper meta data
 		return researchPaperAPI.getResearchPaperDetails(username);
 		
+	}
+	
+	//method to get all research papers
+	@GetMapping(value="getAllResearchpapers")
+	public List<ResearchPaper> getAllResearchPapers (){
+		
+		//get all research papers
+		return researchPaperAPI.getAllResearchPaperDetails();
 	}
 	
 
