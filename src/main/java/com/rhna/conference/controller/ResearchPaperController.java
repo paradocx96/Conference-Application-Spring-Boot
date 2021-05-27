@@ -64,7 +64,7 @@ public class ResearchPaperController {
 	
 	//method to get research paper meta data
 	@GetMapping(value="getResearchPaperDetailsByUsername/{username}")
-	public ResearchPaper getResearchPaperDetails( @PathVariable String username) {
+	public ResearchPaper getResearchPaperDetails( @PathVariable("username") String username) {
 		
 		// get research paper meta data
 		return researchPaperAPI.getResearchPaperDetails(username);
