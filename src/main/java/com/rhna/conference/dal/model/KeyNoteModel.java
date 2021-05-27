@@ -48,15 +48,12 @@ public class KeyNoteModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
 	public String getUser() {
 		return user;
 	}

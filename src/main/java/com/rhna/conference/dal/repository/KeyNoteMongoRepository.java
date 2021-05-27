@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.rhna.conference.dal.model.KeyNoteModel;
 
+import java.util.List;
+
 @Repository
 public interface KeyNoteMongoRepository extends MongoRepository<KeyNoteModel, String>{
+
+    List<KeyNoteModel> findByStatus(String status);
 }

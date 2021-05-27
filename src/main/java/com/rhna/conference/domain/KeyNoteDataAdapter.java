@@ -13,5 +13,9 @@ public interface KeyNoteDataAdapter {
 
 	KeyNote update(KeyNote keyNote);
 
-	Optional<KeyNote> getKeyNoteById(String id);
+	List<KeyNote> getById(String id);
+
+	KeyNote updateStatus(KeyNote keyNote);
+
+	List<KeyNote> getByStatus(String status);
 }

@@ -63,4 +63,25 @@ public class KeyNoteEndpoint {
         return keyNoteApi.updateKeyNote(keyNote);
     }
 
+    @GetMapping("/get-by-id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<KeyNote> getKeyNoteById(@PathVariable String id) {
+        return keyNoteApi.getKeyNoteById(id);
+    }
+
+    @GetMapping("/get-by-status/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<KeyNote> getKeyNoteByStatus(@PathVariable String status) {
+        return keyNoteApi.getKeyNoteByStatus(status);
+    }
+
+    @PutMapping("/update-status/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public KeyNote updateKeyNoteStatus(@RequestBody KeyNoteDto keyNoteDto, @PathVariable String id) {
+        KeyNote keyNote = new KeyNote();
+        keyNote.setId(id);
+        keyNote.setStatus(keyNoteDto.getStatus());
+
+        return keyNoteApi.updateStatus(keyNote);
+    }
 }
