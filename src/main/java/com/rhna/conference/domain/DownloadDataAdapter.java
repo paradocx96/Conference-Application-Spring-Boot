@@ -18,4 +18,6 @@ public interface DownloadDataAdapter {
     HttpEntity<byte[]> getById(String id);
 
     HttpEntity<byte[]> getByType(String type, String status);
+
+    String deleteById(String id);
 }
