@@ -192,4 +192,24 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 	}
 
 	
+	//updates existing file on given id
+	@Override
+	public ResearchPaperModel updateFileById(String id, MultipartFile multipartFile) throws IOException {
+		//setting the new file as a binary object
+		Binary file = new Binary(BsonBinarySubType.BINARY, multipartFile.getBytes() );
+		
+		
+		
+		//update the file and set the status to pending
+		ResearchPaperModel researchPaperModel = 
+				mongoTemplate.findAndModify(Query.query(Criteria.where("id").is(id)), 
+						new Update().set("status", "pending").set("researchPaper", file), 
+						ResearchPaperModel.class);
+		
+		
+		//return the update model
+		return researchPaperModel;
+	}
+
+	
 }

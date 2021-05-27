@@ -139,6 +139,28 @@ public class ResearchPaperAPI {
 		
 	}
 	
+	//update the file by id
+	public ResearchPaper updateFileById (String id, MultipartFile multipartFile) {
+		//instantiate research paper objects
+		ResearchPaper researchPaper = new ResearchPaper();
+		ResearchPaperModel researchPaperModel = new ResearchPaperModel();
+		
+		try {
+			researchPaperModel =   researchPaperDataAdapter.updateFileById(id, multipartFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		researchPaper.setId(researchPaperModel.getId());
+		researchPaper.setEmail(researchPaperModel.getEmail());
+		researchPaper.setUsername(researchPaperModel.getUsername());
+		researchPaper.setTitle(researchPaperModel.getTitle());
+		researchPaper.setStatus(researchPaperModel.getStatus());
+		
+		return researchPaper;
+	}
+	
 	//delete the research paper based on id
 	public String deletePaperById(String id) {
 		return researchPaperDataAdapter.deleteById(id);

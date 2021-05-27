@@ -27,5 +27,7 @@ public interface ResearchPaperDataAdapter {
 	public ResearchPaper updateStatus(ResearchPaper researchPaper);
 	
 	public String deleteById(String id);
+	
+	public ResearchPaperModel updateFileById (String id, MultipartFile multipartFile) throws IOException;
 
 }

@@ -87,6 +87,16 @@ public class ResearchPaperController {
 		return researchPaperAPI.updateStatus(id, status);
 	}
 	
+	//updates file by id
+	@PutMapping(value="updateFile")
+	public ResearchPaper updateFileById (@RequestParam("id") String id, 
+			@RequestParam("file") MultipartFile multipartFile) {
+		
+		//update file
+		return researchPaperAPI.updateFileById(id, multipartFile);
+		
+	}
+	
 	@DeleteMapping(value="deletePaper/{id}")
 	public String deletePaperById ( @PathVariable("id")  String id) {
 		
