@@ -5,6 +5,8 @@ import com.rhna.conference.domain.WorkshopDataAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkshopAPI {
 
@@ -20,4 +22,7 @@ public class WorkshopAPI {
         return workshop;
     }
 
+    public List<Workshop> getAllWorkshops() {
+        return workshopDataAdapter.getAll();
+    }
 }

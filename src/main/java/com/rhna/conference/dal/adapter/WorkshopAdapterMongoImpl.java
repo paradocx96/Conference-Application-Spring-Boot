@@ -7,6 +7,7 @@ import com.rhna.conference.domain.WorkshopDataAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -36,6 +37,21 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
 
     @Override
     public List<Workshop> getAll() {
-        return null;
+        List<WorkshopModel> workshopModelList = workshopMongoRepository.findAll();
+        List<Workshop> workshops = new ArrayList<>();
+        for (WorkshopModel workshopModel : workshopModelList) {
+            Workshop workshop = new Workshop();
+            workshop.setUsername(workshopModel.getUsername());
+            workshop.setTitle(workshopModel.getTitle());
+            workshop.setCourseCode(workshopModel.getCourseCode());
+            workshop.setVenue(workshopModel.getVenue());
+            workshop.setDate(workshopModel.getDate());
+            workshop.setStartingTime(workshopModel.getStartingTime());
+            workshop.setEndTime(workshopModel.getEndTime());
+            workshop.setDescription(workshopModel.getDescription());
+            workshop.setDocuments(workshopModel.getDocuments());
+            workshops.add(workshop);
+        }
+        return workshops;
     }
 }
