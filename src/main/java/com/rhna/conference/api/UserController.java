@@ -3,6 +3,8 @@ package com.rhna.conference.api;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.rhna.conference.dal.model.ERole;
+import com.rhna.conference.dal.model.EmailSender;
 import com.rhna.conference.dal.model.Role;
 import com.rhna.conference.dal.model.User;
 import com.rhna.conference.dal.repository.RoleMongoRepository;
@@ -40,9 +43,12 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	EmailSender emailSender;
+	
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException{
+	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException{
 		
 		
 		//This is for check the program display correct values or not
@@ -52,6 +58,12 @@ public class UserController {
 		System.out.println(userRegister.getPassword());
 		System.out.println(userRegister.getUserType());
 		
+		
+		
+		//send email to user
+		emailSender.setEmail(userRegister.getEmail());
+		emailSender.setUsername(userRegister.getUsername());
+		emailSender.sendEmail();
 		
 		// Create new user's account
 		User user = new User(userRegister.getUsername(),
@@ -65,7 +77,7 @@ public class UserController {
 		Set<Role> roles = new HashSet<>();
 
 	
-			//Check user is buyer or seller
+		//Check user is buyer or seller
 		if(userRegister.getUserType().equals("user")) {
 				
 				//If it is true, Add ROLE_USER to that user
