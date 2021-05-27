@@ -25,5 +25,7 @@ public interface ResearchPaperDataAdapter {
 	public List<ResearchPaperModel> getAllResearchPaperModels ();
 	
 	public ResearchPaper updateStatus(ResearchPaper researchPaper);
+	
+	public String deleteById(String id);
 
 }

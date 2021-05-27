@@ -179,5 +179,17 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 		
 	}
 
+	//deletes a research paper on given id.
+	@Override
+	public String deleteById(String id) {
+		//perform delete
+		researchPaperMongoRepo.deleteById(id);
+		
+		System.out.println("Deleting research paper with id : "+id);
+		
+		//return the id
+		return id;
+	}
+
 	
 }

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -84,6 +85,13 @@ public class ResearchPaperController {
 		
 		//update the research paper status
 		return researchPaperAPI.updateStatus(id, status);
+	}
+	
+	@DeleteMapping(value="deletePaper/{id}")
+	public String deletePaperById ( @PathVariable("id")  String id) {
+		
+		//delete the paper and return the id
+		return researchPaperAPI.deletePaperById(id);
 	}
 	
 

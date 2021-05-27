@@ -138,5 +138,10 @@ public class ResearchPaperAPI {
 		return researchPaper;
 		
 	}
+	
+	//delete the research paper based on id
+	public String deletePaperById(String id) {
+		return researchPaperDataAdapter.deleteById(id);
+	}
 
 }
