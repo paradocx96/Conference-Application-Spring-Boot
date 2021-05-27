@@ -1,7 +1,6 @@
 package com.rhna.conference.domain;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface NewsDataAdapter {
 
@@ -13,5 +12,9 @@ public interface NewsDataAdapter {
 
     News update(News news);
 
-    Optional<News> getNewsById(String id);
+    List<News> getById(String id);
+
+    News updateStatus(News news);
+
+    List<News> getByStatus(String status);
 }

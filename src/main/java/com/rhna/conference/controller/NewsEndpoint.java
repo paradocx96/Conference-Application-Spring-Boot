@@ -59,4 +59,26 @@ public class NewsEndpoint {
         return newsApi.updateNews(news);
     }
 
+    @PutMapping("/updateStatus/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public News updateNewsStatus(@RequestBody NewsDto newsDto, @PathVariable String id) {
+        News news = new News();
+        news.setId(id);
+        news.setStatus(newsDto.getStatus());
+
+        return newsApi.updateStatus(news);
+    }
+
+    @GetMapping("/get-by-status/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<News> getNewsByStatus(@PathVariable String status) {
+        return newsApi.getNewsByStatus(status);
+    }
+
+    @GetMapping("/get-by-id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<News> getNewsById(@PathVariable String id) {
+        return newsApi.getNewsById(id);
+    }
+
 }

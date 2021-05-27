@@ -36,4 +36,16 @@ public class NewsApi {
     public void deleteNewsById(String id) {
         newsDataAdapter.deleteById(id);
     }
+
+    public News updateStatus(News news) {
+        return  newsDataAdapter.updateStatus(news);
+    }
+
+    public List<News> getNewsByStatus(String status) {
+        return new ArrayList<>(newsDataAdapter.getByStatus(status));
+    }
+
+    public List<News> getNewsById(String id) {
+        return newsDataAdapter.getById(id);
+    }
 }

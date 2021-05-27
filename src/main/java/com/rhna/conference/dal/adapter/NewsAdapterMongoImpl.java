@@ -88,7 +88,67 @@ public class NewsAdapterMongoImpl implements NewsDataAdapter {
     }
 
     @Override
-    public Optional<News> getNewsById(String id) {
-        return Optional.empty();
+    public List<News> getById(String id) {
+
+        NewsModel newsModel = new NewsModel();
+        newsModel = repository.findById(id).get();
+        List<News> newsList = new ArrayList<>();
+
+        News news = new News();
+
+        news.setId(newsModel.getId());
+        news.setDescription(newsModel.getDescription());
+        news.setDate(newsModel.getDate());
+        news.setDatetime(newsModel.getDatetime());
+        news.setStatus(newsModel.getStatus());
+        news.setUser(newsModel.getUser());
+
+        newsList.add(news);
+        return newsList;
     }
+
+    @Override
+    public News updateStatus(News news) {
+
+        NewsModel newsModel = mongoTemplate.findAndModify(
+                Query.query(Criteria.where("id").is(news.getId())),
+                new Update()
+                        .set("status", news.getStatus()),
+                NewsModel.class
+        );
+
+        if(newsModel != null) {
+            news.setDescription(newsModel.getDescription());
+            news.setDate(newsModel.getDate());
+            news.setDatetime(newsModel.getDatetime());
+            news.setUser(newsModel.getUser());
+
+            return news;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<News> getByStatus(String status) {
+
+        List<NewsModel> newsModels = repository.findByStatus(status);
+        List<News> newses = new ArrayList<>();
+
+        for (NewsModel newsModel : newsModels) {
+            News news = new News();
+
+            news.setId(newsModel.getId());
+            news.setDescription(newsModel.getDescription());
+            news.setDate(newsModel.getDate());
+            news.setDatetime(newsModel.getDatetime());
+            news.setStatus(newsModel.getStatus());
+            news.setUser(newsModel.getUser());
+
+            newses.add(news);
+        }
+        return newses;
+    }
+
+
 }
