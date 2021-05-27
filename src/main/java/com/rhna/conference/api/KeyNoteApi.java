@@ -1,12 +1,13 @@
 package com.rhna.conference.api;
 
+import com.rhna.conference.domain.KeyNoteDataAdapter;
 import com.rhna.conference.domain.KeyNote;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.rhna.conference.domain.KeyNoteDataAdapter;
-
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Service
 public class KeyNoteApi {
@@ -23,6 +24,17 @@ public class KeyNoteApi {
 		keyNote = keyNoteDataAdapter.save(keyNote);
 		return keyNote;
 	}
-	
+
+	public List<KeyNote> getKeyNotes(){
+		return new ArrayList<>(keyNoteDataAdapter.getAll());
+	}
+
+	public void deleteKeyNote(String id) {
+		keyNoteDataAdapter.deleteById(id);
+	}
+
+	public KeyNote updateKeyNote(KeyNote keyNote) {
+		return keyNoteDataAdapter.update(keyNote);
+	}
 	
 }
