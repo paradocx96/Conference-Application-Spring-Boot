@@ -23,5 +23,7 @@ public interface ResearchPaperDataAdapter {
 	public ResearchPaperModel getResearchPaperModelByUsername (String username);
 	
 	public List<ResearchPaperModel> getAllResearchPaperModels ();
+	
+	public ResearchPaper updateStatus(ResearchPaper researchPaper);
 
 }

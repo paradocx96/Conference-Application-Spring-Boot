@@ -9,6 +9,10 @@ import java.util.List;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -24,11 +28,14 @@ import com.rhna.conference.domain.ResearchPaperDataAdapter;
 @Component
 public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 	
-	private ResearchPaperMongoRepository researchPaperMongoRepo;
+	private final ResearchPaperMongoRepository researchPaperMongoRepo;
+	private final MongoTemplate mongoTemplate;
 	
 	@Autowired
-	public ResearchPaperAdapterMongoImpl(ResearchPaperMongoRepository researchPaperMongoRepo) {
+	public ResearchPaperAdapterMongoImpl(ResearchPaperMongoRepository researchPaperMongoRepo, 
+			MongoTemplate mongoTemplate) {
 		this.researchPaperMongoRepo = researchPaperMongoRepo;
+		this.mongoTemplate = mongoTemplate;
 	}
 
 	@Override
@@ -146,4 +153,31 @@ public class ResearchPaperAdapterMongoImpl implements ResearchPaperDataAdapter {
 		return researchPaperModelList;
 	}
 
+	//update the research paper status
+	@Override
+	public ResearchPaper updateStatus(ResearchPaper researchPaper) {
+		
+		//use mongo template
+		//find and  modify research paper status by id
+		ResearchPaperModel researchPaperModel = 
+				mongoTemplate.findAndModify(Query.query(Criteria.where("id").is(researchPaper.getId())),
+						new Update().set("status", researchPaper.getStatus()), ResearchPaperModel.class);
+		
+		//check if the research paper is null
+		if(researchPaperModel != null) {
+			//set the details
+			researchPaper.setTitle(researchPaperModel.getTitle());
+			researchPaper.setUsername(researchPaperModel.getUsername());
+			researchPaper.setEmail(researchPaperModel.getEmail());
+			
+			//return the research paper
+			return researchPaper;
+		}
+		else {
+			return null;
+		}
+		
+	}
+
+	
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,6 +76,14 @@ public class ResearchPaperController {
 		
 		//get all research papers
 		return researchPaperAPI.getAllResearchPaperDetails();
+	}
+	
+	//method for updating the research paper status
+	@PutMapping(value="updateStatus")
+	public ResearchPaper updateStatus( @RequestParam("id") String id, @RequestParam ("status") String status) {
+		
+		//update the research paper status
+		return researchPaperAPI.updateStatus(id, status);
 	}
 	
 

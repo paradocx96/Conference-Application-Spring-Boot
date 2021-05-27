@@ -121,5 +121,22 @@ public class ResearchPaperAPI {
 		//return the research paper list
 		return researchPaperList;
 	}
+	
+	//update the status of the research paper through the id
+	public ResearchPaper updateStatus( String id, String status) {
+		//instantiate research paper object
+		ResearchPaper researchPaper = new ResearchPaper();
+		
+		//set the id and status
+		researchPaper.setId(id);
+		researchPaper.setStatus(status);
+		
+		//update the status
+		researchPaper =  researchPaperDataAdapter.updateStatus(researchPaper);
+		
+		//return the researchPaper
+		return researchPaper;
+		
+	}
 
 }
