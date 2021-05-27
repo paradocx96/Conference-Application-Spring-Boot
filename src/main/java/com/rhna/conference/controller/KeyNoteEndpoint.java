@@ -30,6 +30,7 @@ public class KeyNoteEndpoint {
         keyNote.setSpeakertype(keyNoteDto.getSpeakertype());
         keyNote.setOrganization(keyNoteDto.getOrganization());
         keyNote.setDescription(keyNoteDto.getDescription());
+        keyNote.setStatus("Inactive");
         keyNote.setUser(keyNoteDto.getUser());
 
         return keyNoteApi.addKeyNote(keyNote);
@@ -56,9 +57,31 @@ public class KeyNoteEndpoint {
         keyNote.setSpeakertype(keyNoteDto.getSpeakertype());
         keyNote.setOrganization(keyNoteDto.getOrganization());
         keyNote.setDescription(keyNoteDto.getDescription());
+        keyNote.setStatus(keyNoteDto.getStatus());
         keyNote.setUser(keyNoteDto.getUser());
 
         return keyNoteApi.updateKeyNote(keyNote);
     }
 
+    @GetMapping("/get-by-id/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<KeyNote> getKeyNoteById(@PathVariable String id) {
+        return keyNoteApi.getKeyNoteById(id);
+    }
+
+    @GetMapping("/get-by-status/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<KeyNote> getKeyNoteByStatus(@PathVariable String status) {
+        return keyNoteApi.getKeyNoteByStatus(status);
+    }
+
+    @PutMapping("/update-status/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public KeyNote updateKeyNoteStatus(@RequestBody KeyNoteDto keyNoteDto, @PathVariable String id) {
+        KeyNote keyNote = new KeyNote();
+        keyNote.setId(id);
+        keyNote.setStatus(keyNoteDto.getStatus());
+
+        return keyNoteApi.updateStatus(keyNote);
+    }
 }

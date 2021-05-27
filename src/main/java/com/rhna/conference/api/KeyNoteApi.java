@@ -36,5 +36,16 @@ public class KeyNoteApi {
 	public KeyNote updateKeyNote(KeyNote keyNote) {
 		return keyNoteDataAdapter.update(keyNote);
 	}
-	
+
+	public List<KeyNote> getKeyNoteById(String id) {
+		return keyNoteDataAdapter.getById(id);
+	}
+
+	public List<KeyNote> getKeyNoteByStatus(String status) {
+		return new ArrayList<>(keyNoteDataAdapter.getByStatus(status));
+	}
+
+	public KeyNote updateStatus(KeyNote keyNote) {
+		return keyNoteDataAdapter.updateStatus(keyNote);
+	}
 }

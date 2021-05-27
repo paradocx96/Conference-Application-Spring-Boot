@@ -37,6 +37,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
         keyNoteModel.setSpeakertype(keyNote.getSpeakertype());
         keyNoteModel.setOrganization(keyNote.getOrganization());
         keyNoteModel.setDescription(keyNote.getDescription());
+        keyNoteModel.setStatus(keyNote.getStatus());
         keyNoteModel.setUser(keyNote.getUser());
         keyNoteModel.setDatetime(keyNote.getDatetime());
 
@@ -59,6 +60,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
             keyNote.setSpeakertype(keyNoteModel.getSpeakertype());
             keyNote.setOrganization(keyNoteModel.getOrganization());
             keyNote.setDescription(keyNoteModel.getDescription());
+            keyNote.setStatus(keyNoteModel.getStatus());
             keyNote.setUser(keyNoteModel.getUser());
             keyNote.setDatetime(keyNoteModel.getDatetime());
 
@@ -85,6 +87,7 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
                         .set("speakertype", keyNote.getSpeakertype())
                         .set("organization", keyNote.getOrganization())
                         .set("description", keyNote.getDescription())
+                        .set("status", keyNote.getStatus())
                         .set("user", keyNote.getUser()),
                 KeyNoteModel.class
         );
@@ -93,7 +96,69 @@ public class KeyNoteAdapterMongoImpl implements KeyNoteDataAdapter {
     }
 
     @Override
-    public Optional<KeyNote> getKeyNoteById(String id) {
-        return null;
+    public List<KeyNote> getById(String id) {
+
+        KeyNoteModel keyNoteModel = new KeyNoteModel();
+        keyNoteModel = repository.findById(id).get();
+        List<KeyNote> keyNoteList = new ArrayList<>();
+        KeyNote keyNote = new KeyNote();
+
+        keyNote.setId(keyNoteModel.getId());
+        keyNote.setSpeakername(keyNoteModel.getSpeakername());
+        keyNote.setSpeakertype(keyNoteModel.getSpeakertype());
+        keyNote.setOrganization(keyNoteModel.getOrganization());
+        keyNote.setDescription(keyNoteModel.getDescription());
+        keyNote.setStatus(keyNoteModel.getStatus());
+        keyNote.setUser(keyNoteModel.getUser());
+        keyNote.setDatetime(keyNoteModel.getDatetime());
+
+        keyNoteList.add(keyNote);
+        return keyNoteList;
     }
+
+    @Override
+    public KeyNote updateStatus(KeyNote keyNote) {
+        KeyNoteModel keyNoteModel = mongoTemplate.findAndModify(
+                Query.query(Criteria.where("id").is(keyNote.getId())),
+                new Update()
+                        .set("status", keyNote.getStatus()),
+                KeyNoteModel.class
+        );
+
+        if (keyNoteModel != null) {
+            keyNote.setSpeakername(keyNoteModel.getSpeakername());
+            keyNote.setSpeakertype(keyNoteModel.getSpeakertype());
+            keyNote.setOrganization(keyNoteModel.getOrganization());
+            keyNote.setDescription(keyNoteModel.getDescription());
+            keyNote.setUser(keyNoteModel.getUser());
+            keyNote.setDatetime(keyNoteModel.getDatetime());
+
+            return keyNote;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public List<KeyNote> getByStatus(String status) {
+        List<KeyNoteModel> keyNoteModels = repository.findByStatus(status);
+        List<KeyNote> keyNoteList = new ArrayList<>();
+
+        for (KeyNoteModel keyNoteModel : keyNoteModels) {
+            KeyNote keyNote = new KeyNote();
+
+            keyNote.setId(keyNoteModel.getId());
+            keyNote.setSpeakername(keyNoteModel.getSpeakername());
+            keyNote.setSpeakertype(keyNoteModel.getSpeakertype());
+            keyNote.setOrganization(keyNoteModel.getOrganization());
+            keyNote.setDescription(keyNoteModel.getDescription());
+            keyNote.setStatus(keyNoteModel.getStatus());
+            keyNote.setUser(keyNoteModel.getUser());
+            keyNote.setDatetime(keyNoteModel.getDatetime());
+
+            keyNoteList.add(keyNote);
+        }
+        return keyNoteList;
+    }
+
 }
