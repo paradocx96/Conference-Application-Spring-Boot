@@ -11,18 +11,6 @@ public class Download {
     private String user;
     private LocalDateTime datetime;
 
-    public Download() {
-    }
-
-    public Download(String id, String name, String type, String status, String user, LocalDateTime datetime) {
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.status = status;
-        this.user = user;
-        this.datetime = datetime;
-    }
-
     public String getId() {
         return id;
     }

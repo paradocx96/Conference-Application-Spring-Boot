@@ -18,20 +18,6 @@ public class DownloadModel {
     private String user;
     private LocalDateTime datetime;
 
-    public DownloadModel() {
-    }
-
-    public DownloadModel(String id, String name, String type, Binary file, String status, String user, LocalDateTime datetime) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.type = type;
-        this.file = file;
-        this.status = status;
-        this.user = user;
-        this.datetime = datetime;
-    }
-
     public String getId() {
         return id;
     }

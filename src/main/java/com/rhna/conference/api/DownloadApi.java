@@ -36,6 +36,7 @@ public class DownloadApi {
             ID = adapter.save(download, multipartFile);
             return ID;
         } catch (IOException exception) {
+            System.out.println("Exception in adding research paper in API : " + exception);
             exception.printStackTrace();
             return "Not Saved!";
         }

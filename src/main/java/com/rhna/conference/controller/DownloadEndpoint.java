@@ -2,6 +2,7 @@ package com.rhna.conference.controller;
 
 import com.rhna.conference.api.DownloadApi;
 import com.rhna.conference.domain.Download;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -10,9 +11,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "*")
 @RestController
 @RequestMapping("/download")
-@CrossOrigin(origins = "*", allowedHeaders = "*", exposedHeaders = "*")
 public class DownloadEndpoint {
 
     private final DownloadApi api;
