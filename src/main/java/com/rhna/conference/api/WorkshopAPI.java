@@ -3,6 +3,7 @@ package com.rhna.conference.api;
 import com.rhna.conference.domain.Workshop;
 import com.rhna.conference.domain.WorkshopDataAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,5 +25,9 @@ public class WorkshopAPI {
 
     public List<Workshop> getAllWorkshops() {
         return workshopDataAdapter.getAll();
+    }
+
+    public HttpEntity<byte[]> getWorkshopDocumentsByUser(String username){
+        return workshopDataAdapter.getFileByUsername(username);
     }
 }

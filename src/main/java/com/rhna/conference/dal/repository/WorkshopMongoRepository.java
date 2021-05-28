@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface WorkshopMongoRepository extends MongoRepository<WorkshopModel, String> {
+    WorkshopModel findByUsername(String username);
 }

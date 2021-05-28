@@ -4,7 +4,12 @@ import com.rhna.conference.dal.model.WorkshopModel;
 import com.rhna.conference.dal.repository.WorkshopMongoRepository;
 import com.rhna.conference.domain.Workshop;
 import com.rhna.conference.domain.WorkshopDataAdapter;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -53,5 +58,32 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
             workshops.add(workshop);
         }
         return workshops;
+    }
+
+    @Override
+    public HttpEntity<byte[]> getFileByUsername(String username) {
+        WorkshopModel workshopModel;
+        workshopModel = workshopMongoRepository.findByUsername(username);
+        Binary documents = workshopModel.getDocuments();
+
+        String fileName = workshopModel.getTitle();
+
+        if (documents != null) {
+            HttpHeaders headers = new HttpHeaders();
+            //set the content type to octet stream
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+            //set content disposition
+            ContentDisposition contentDisposition = ContentDisposition.builder("inline")
+                    .filename(fileName).build();
+
+            //set the content disposition to headers
+            headers.setContentDisposition(contentDisposition);
+
+            //return the byte array as an http entity
+            return new HttpEntity<byte[]>(documents.getData(), headers);
+        } else {
+            return null;
+        }
     }
 }

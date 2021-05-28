@@ -5,6 +5,7 @@ import com.rhna.conference.domain.Workshop;
 import org.bson.BsonBinarySubType;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,4 +57,8 @@ public class WorkshopController {
         return workshopAPI.getAllWorkshops();
     }
 
+    @PostMapping(value = "/downloadByUsername")
+    public HttpEntity<byte[]> getResearchPaperFileByUsername(@RequestParam("username") String username) {
+        return workshopAPI.getWorkshopDocumentsByUser(username);
+    }
 }
