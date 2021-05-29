@@ -78,4 +78,46 @@ public class DownloadApi {
     public String deleteDownloadById(String id) {
         return adapter.deleteById(id);
     }
+
+    public List<Download> getByStatus(String status) {
+        List<Download> downloadList = new ArrayList<Download>();
+        List<DownloadModel> downloadModelList = new ArrayList<DownloadModel>();
+
+        downloadModelList = adapter.getByStatus(status);
+        for (DownloadModel downloadModel : downloadModelList) {
+            Download download = new Download();
+
+            download.setId(downloadModel.getId());
+            download.setName(downloadModel.getName());
+            download.setType(downloadModel.getType());
+            download.setStatus(downloadModel.getStatus());
+            download.setUser(downloadModel.getUser());
+            download.setDatetime(downloadModel.getDatetime());
+            downloadList.add(download);
+        }
+        return downloadList;
+    }
+
+    public Download updateDownload(MultipartFile multipartFile,
+                                 String id,
+                                 String name,
+                                 String type,
+                                 String user,
+                                 String status) {
+
+        Download download = new Download();
+        download.setId(id);
+        download.setName(name);
+        download.setType(type);
+        download.setUser(user);
+        download.setStatus(status);
+        download.setDatetime(LocalDateTime.now());
+
+        try {
+            return adapter.updateDownload(download,multipartFile);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+    }
 }
