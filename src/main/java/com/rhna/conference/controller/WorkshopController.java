@@ -26,6 +26,21 @@ public class WorkshopController {
         this.workshopAPI = workshopAPI;
     }
 
+
+    /**
+     * Create workshop
+     * @param username
+     * @param title
+     * @param courseCode
+     * @param venue
+     * @param date
+     * @param startingTime
+     * @param endTime
+     * @param description
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Workshop addWorkshop(
@@ -51,17 +66,65 @@ public class WorkshopController {
         return workshopAPI.addWorkshop(workshop);
     }
 
+
+    /**
+     * View all scheduled(approved) workshops
+     * @return
+     */
+    @GetMapping(value = "/scheduled-workshops")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Workshop> getAllScheduledWorkshops() {
+        return workshopAPI.getAllScheduledWorkshops();
+    }
+
+    /**
+     * View all workshops
+     * @return
+     */
     @GetMapping
     @ResponseStatus(HttpStatus.CREATED)
     public List<Workshop> getAllWorkshops() {
         return workshopAPI.getAllWorkshops();
     }
 
-    @PostMapping(value = "/downloadDocuments")
+
+    /**
+     * Download the documents
+     * @param id
+     * @return
+     */
+    @PostMapping(value = "/download-documents")
     public HttpEntity<byte[]> getResearchPaperFileByWorkshopId(@RequestParam("id") String id) {
         return workshopAPI.getWorkshopDocumentsByUser(id);
     }
 
+
+    /**
+     * Delete a workshop
+     * @param id
+     * @return
+     */
+    @PostMapping(value = "/delete")
+    public HttpEntity<byte[]> getDeleteWorkshopById(@RequestParam("id") String id) {
+        return workshopAPI.getDeleteWorkshopById(id);
+    }
+
+
+    /**
+     * Reschedule approved / pending workshop
+     * @param id
+     * @param username
+     * @param title
+     * @param courseCode
+     * @param venue
+     * @param date
+     * @param startingTime
+     * @param endTime
+     * @param description
+     * @param multipartFile
+     * @return
+     * @throws IOException
+     */
     @PutMapping(value = "/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Workshop updateWorkshop(
@@ -88,4 +151,27 @@ public class WorkshopController {
         workshop.setDocuments(new Binary(BsonBinarySubType.BINARY, multipartFile.getBytes()));
         return workshopAPI.updateWorkshop(workshop);
     }
+
+
+    /**
+     * Show pending workshops
+      * @return
+     */
+    @GetMapping(value = "/pending-workshops")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Workshop> getPendingWorkshops() {
+        return workshopAPI.getPendingWorkshops();
+    }
+
+
+    /**
+     * Approve the workshop
+     * @param id
+     * @return
+     */
+    @PostMapping(value = "/approve")
+    public HttpEntity<byte[]> getApproveWorkshopById(@RequestParam("id") String id) {
+        return workshopAPI.getApproveWorkshopById(id);
+    }
+
 }
