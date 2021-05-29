@@ -15,7 +15,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -102,7 +101,6 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(workshop.getId()));
         Update update = new Update();
-        System.out.println(update);
         update.set("username", workshop.getUsername());
         update.set("title", workshop.getTitle());
         update.set("courseCode", workshop.getCourseCode());
@@ -120,5 +118,71 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
 
 
         return workshop;
+    }
+
+    @Override
+    public List<Workshop> getAllPending() {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("isPublished").is(false));
+        List<WorkshopModel> workshopModelList = mongoTemplate.find(query, WorkshopModel.class);
+        List<Workshop> workshops = new ArrayList<>();
+        for (WorkshopModel workshopModel : workshopModelList) {
+            Workshop workshop = new Workshop();
+            workshop.setId(workshopModel.getId());
+            workshop.setUsername(workshopModel.getUsername());
+            workshop.setTitle(workshopModel.getTitle());
+            workshop.setCourseCode(workshopModel.getCourseCode());
+            workshop.setVenue(workshopModel.getVenue());
+            workshop.setDate(workshopModel.getDate());
+            workshop.setStartingTime(workshopModel.getStartingTime());
+            workshop.setEndTime(workshopModel.getEndTime());
+            workshop.setDescription(workshopModel.getDescription());
+            workshop.setDocuments(null);  // Do not send documents. only pass has or hasn't status.
+            workshop.setIsPublished(workshopModel.getPublished());
+            workshop.setHasDocuments(workshopModel.getHasDocuments());
+            workshops.add(workshop);
+        }
+        return workshops;
+    }
+
+    @Override
+    public List<Workshop> getAllScheduled() {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("isPublished").is(true));
+        List<WorkshopModel> workshopModelList = mongoTemplate.find(query, WorkshopModel.class);
+        List<Workshop> workshops = new ArrayList<>();
+        for (WorkshopModel workshopModel : workshopModelList) {
+            Workshop workshop = new Workshop();
+            workshop.setId(workshopModel.getId());
+            workshop.setUsername(workshopModel.getUsername());
+            workshop.setTitle(workshopModel.getTitle());
+            workshop.setCourseCode(workshopModel.getCourseCode());
+            workshop.setVenue(workshopModel.getVenue());
+            workshop.setDate(workshopModel.getDate());
+            workshop.setStartingTime(workshopModel.getStartingTime());
+            workshop.setEndTime(workshopModel.getEndTime());
+            workshop.setDescription(workshopModel.getDescription());
+            workshop.setDocuments(null);  // Do not send documents. only pass has or hasn't status.
+            workshop.setIsPublished(workshopModel.getPublished());
+            workshop.setHasDocuments(workshopModel.getHasDocuments());
+            workshops.add(workshop);
+        }
+        return workshops;
+    }
+
+    @Override
+    public String delete(String id) {
+        workshopMongoRepository.deleteById(id);
+        return "Deleted";
+    }
+
+    @Override
+    public String approve(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(id));
+        Update update = new Update();
+        update.set("isPublished", true);
+        mongoTemplate.findAndModify(query, update, WorkshopModel.class);
+        return "Approved";
     }
 }
