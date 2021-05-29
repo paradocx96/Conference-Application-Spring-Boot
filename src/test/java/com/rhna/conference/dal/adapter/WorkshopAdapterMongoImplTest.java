@@ -5,6 +5,7 @@ import com.rhna.conference.RhnaConferenceBackendApplicationTests;
 import com.rhna.conference.dal.model.WorkshopModel;
 import com.rhna.conference.dal.repository.WorkshopMongoRepository;
 import com.rhna.conference.domain.Workshop;
+import org.bson.types.Binary;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
@@ -15,6 +16,9 @@ import org.springframework.http.HttpEntity;
 import java.util.List;
 
 public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicationTests {
+
+    byte[] byteArray1 = {80, 65, 78, 75, 65, 74};
+    Binary testDummyDocument = new Binary(byteArray1);
 
     @InjectMocks
     @Autowired
@@ -68,6 +72,11 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
             for (WorkshopModel workshopModel1 : workshopModels) {
                 workshopMongoRepository.save(workshopModel1);
             }
+            WorkshopModel newWorkshop = new WorkshopModel("testUserName_03", "testTitle_03",
+                    "testCourseCode_03", "testVenue_03", "testDate_03", "testStartingTime_03",
+                    "testEndTime_03", "testDescription_03", testDummyDocument);
+            newWorkshop.setId("workshopId_03");
+            workshopMongoRepository.save(newWorkshop);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -77,13 +86,13 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
     void tearDown() {
         workshopMongoRepository.deleteById("workshopId_01");
         workshopMongoRepository.deleteById("workshopId_02");
+        workshopMongoRepository.deleteById("workshopId_03");
     }
 
     @Test
-    @DisplayName("Test should pass the workshop each fields values going equal")
     void testSave() {
         Workshop newWorkshop = new Workshop();
-        newWorkshop.setId("workshopId_03");
+        newWorkshop.setId("workshopId_04");
         newWorkshop.setUsername("dummyUserName");
         newWorkshop.setTitle("dummyTitle");
         newWorkshop.setCourseCode("dummyCourseCode");
@@ -92,11 +101,11 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
         newWorkshop.setStartingTime("dummyStartingTime");
         newWorkshop.setEndTime("dummyEndTime");
         newWorkshop.setDescription("dummyDescription");
-        newWorkshop.setDocuments(null);
+        newWorkshop.setDocuments(testDummyDocument);
 
         Workshop result = workshopAdapterMongo.save(newWorkshop);
 
-        Assertions.assertEquals(result.getId(), "workshopId_03");
+        Assertions.assertEquals(result.getId(), "workshopId_04");
         Assertions.assertEquals(result.getUsername(), "dummyUserName");
         Assertions.assertEquals(result.getTitle(), "dummyTitle");
         Assertions.assertEquals(result.getCourseCode(), "dummyCourseCode");
@@ -105,26 +114,24 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
         Assertions.assertEquals(result.getStartingTime(), "dummyStartingTime");
         Assertions.assertEquals(result.getEndTime(), "dummyEndTime");
         Assertions.assertEquals(result.getDescription(), "dummyDescription");
-        Assertions.assertNull(result.getDocuments());
-        Assertions.assertEquals(result.getHasDocuments(), false);
-        workshopAdapterMongo.delete("workshopId_03"); // Remove the document from database.
+        Assertions.assertNotNull(result.getDocuments());
+        workshopAdapterMongo.delete("workshopId_04"); // Remove the document from database.
     }
 
     @Test
     void testGetAll() {
         List<Workshop> results = workshopAdapterMongo.getAll();
-//        Assertions.assertEquals(results.size(), 2);
+        Assertions.assertTrue(results.size() >= 2);
     }
 
     @Test
     void testGetFileById() {
-        HttpEntity<byte[]> result = workshopAdapterMongo.getFileById("workshopId_02");
-        Assertions.assertEquals(result, null);
+        HttpEntity<byte[]> result = workshopAdapterMongo.getFileById("workshopId_03");
+        Assertions.assertNotNull(result);
     }
 
     @Test
     void testUpdate() {
-
         //Create a dummy updated field workshop with existing workshop id.
         Workshop existingWorkshop = new Workshop();
         existingWorkshop.setId("workshopId_01");
@@ -149,8 +156,6 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
         Assertions.assertEquals(result.getStartingTime(), "updatedStartingTime");
         Assertions.assertEquals(result.getEndTime(), "updatedEndTime");
         Assertions.assertEquals(result.getDescription(), "updatedDescription");
-        Assertions.assertNull(result.getDocuments());
-        Assertions.assertEquals(result.getHasDocuments(), false);
     }
 
     @Test
@@ -162,7 +167,7 @@ public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicati
     }
 
     @Test
-    void getAllScheduled() {
+    void testGetAllScheduled() {
         List<Workshop> results = workshopAdapterMongo.getAllScheduled();
         for (Workshop result : results) {
             Assertions.assertEquals(result.getIsPublished(), true);
