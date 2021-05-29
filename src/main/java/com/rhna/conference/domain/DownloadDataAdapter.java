@@ -17,7 +17,9 @@ public interface DownloadDataAdapter {
 
     HttpEntity<byte[]> getById(String id);
 
-    HttpEntity<byte[]> getByType(String type, String status);
-
     String deleteById(String id);
+
+    List<DownloadModel> getByStatus(String status);
+
+    Download updateDownload(Download download, MultipartFile multipartFile) throws IOException;
 }

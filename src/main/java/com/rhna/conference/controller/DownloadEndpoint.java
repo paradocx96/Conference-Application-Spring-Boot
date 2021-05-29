@@ -46,15 +46,35 @@ public class DownloadEndpoint {
         return api.updateStatus(id, status);
     }
 
-    @PostMapping("/download-id/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public HttpEntity<byte[]> getFileById(@PathVariable String id) {
-        return api.getDownloadById(id);
-    }
-
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteFileById(@PathVariable String id) {
         return api.deleteDownloadById(id);
     }
+
+    @PostMapping("/download-id/{id}")
+    public HttpEntity<byte[]> getFileById(@PathVariable String id) {
+        return api.getDownloadById(id);
+    }
+
+    @PostMapping("/download-id-param")
+    public HttpEntity<byte[]> getFileByParamId(@RequestParam("id") String id) {
+        return api.getDownloadById(id);
+    }
+
+    @GetMapping("/get-by-status/{status}")
+    public List<Download> getListByStatus(@PathVariable String status) {
+        return api.getByStatus(status);
+    }
+
+    @PutMapping(value = "/update-file")
+    public Download updateFileById(@RequestParam("file") MultipartFile multipartFile,
+                                   @RequestParam("id") String id,
+                                   @RequestParam("name") String name,
+                                   @RequestParam("type") String type,
+                                   @RequestParam("user") String user,
+                                   @RequestParam("status") String status) {
+        return api.updateDownload(multipartFile, id, name, type, user, status);
+    }
+
 }

@@ -97,11 +97,6 @@ public class DownloadAdapterMongoImpl implements DownloadDataAdapter {
     }
 
     @Override
-    public HttpEntity<byte[]> getByType(String type, String status) {
-        return null;
-    }
-
-    @Override
     public String deleteById(String id) {
         try {
             repository.deleteById(id);
@@ -110,5 +105,31 @@ public class DownloadAdapterMongoImpl implements DownloadDataAdapter {
             exception.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public List<DownloadModel> getByStatus(String status) {
+        List<DownloadModel> downloadModels = repository.findByStatus(status);
+        return downloadModels;
+    }
+
+    @Override
+    public Download updateDownload(Download download, MultipartFile multipartFile) throws IOException {
+
+        Binary file = new Binary(BsonBinarySubType.BINARY, multipartFile.getBytes());
+
+        DownloadModel downloadModel =  mongoTemplate.findAndModify(
+                Query.query(Criteria.where("id").is(download.getId())),
+                        new Update()
+                                .set("name", download.getName())
+                                .set("type", download.getType())
+                                .set("status", download.getStatus())
+                                .set("user", download.getUser())
+                                .set("file", file),
+                DownloadModel.class
+        );
+
+        download.setDatetime(downloadModel.getDatetime());
+        return download;
     }
 }
