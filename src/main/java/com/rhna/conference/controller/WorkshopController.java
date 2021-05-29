@@ -57,14 +57,15 @@ public class WorkshopController {
         return workshopAPI.getAllWorkshops();
     }
 
-    @PostMapping(value = "/downloadByUsername")
-    public HttpEntity<byte[]> getResearchPaperFileByUsername(@RequestParam("username") String username) {
-        return workshopAPI.getWorkshopDocumentsByUser(username);
+    @PostMapping(value = "/downloadDocuments")
+    public HttpEntity<byte[]> getResearchPaperFileByWorkshopId(@RequestParam("id") String id) {
+        return workshopAPI.getWorkshopDocumentsByUser(id);
     }
 
     @PutMapping(value = "/update")
     @ResponseStatus(HttpStatus.CREATED)
     public Workshop updateWorkshop(
+            @RequestParam("id") String id,
             @RequestParam("username") String username,
             @RequestParam("title") String title,
             @RequestParam("courseCode") String courseCode,
@@ -75,6 +76,7 @@ public class WorkshopController {
             @RequestParam("description") String description,
             @RequestParam("documents") MultipartFile multipartFile) throws IOException {
         Workshop workshop = new Workshop();
+        workshop.setId(id);
         workshop.setUsername(username);
         workshop.setTitle(title);
         workshop.setCourseCode(courseCode);

@@ -1,5 +1,6 @@
 package com.rhna.conference.domain;
 
+import com.rhna.conference.dal.model.WorkshopModel;
 import org.springframework.http.HttpEntity;
 
 import java.util.List;

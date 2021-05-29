@@ -6,6 +6,10 @@ import com.rhna.conference.domain.Workshop;
 import com.rhna.conference.domain.WorkshopDataAdapter;
 import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,14 +18,17 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
     private final WorkshopMongoRepository workshopMongoRepository;
+    private final MongoTemplate mongoTemplate;
 
     @Autowired
-    public WorkshopAdapterMongoImpl(WorkshopMongoRepository workshopMongoRepository) {
+    public WorkshopAdapterMongoImpl(WorkshopMongoRepository workshopMongoRepository, MongoTemplate mongoTemplate) {
         this.workshopMongoRepository = workshopMongoRepository;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -62,12 +69,12 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
     }
 
     @Override
-    public HttpEntity<byte[]> getFileByUsername(String username) {
-        WorkshopModel workshopModel;
-        workshopModel = workshopMongoRepository.findByUsername(username);
-        Binary documents = workshopModel.getDocuments();
+    public HttpEntity<byte[]> getFileByUsername(String id) {
+        Optional<WorkshopModel> workshopModel;
+        workshopModel = workshopMongoRepository.findById(id);
+        Binary documents = workshopModel.get().getDocuments();
 
-        String fileName = workshopModel.getTitle();
+        String fileName = workshopModel.get().getTitle();  //Pass workshop title as file name
 
         if (documents != null) {
             HttpHeaders headers = new HttpHeaders();
@@ -90,20 +97,24 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
 
     @Override
     public Workshop update(Workshop workshop) {
-        WorkshopModel workshopModel;
-        workshopModel = workshopMongoRepository.findByTitle(workshop.getId());
-        workshopModel.setUsername(workshop.getUsername());
-        workshopModel.setTitle(workshop.getTitle());
-        workshopModel.setCourseCode(workshop.getCourseCode());
-        workshopModel.setVenue(workshop.getVenue());
-        workshopModel.setDate(workshop.getDate());
-        workshopModel.setStartingTime(workshop.getStartingTime());
-        workshopModel.setEndTime(workshop.getEndTime());
-        workshopModel.setDescription(workshop.getDescription());
-        if (workshop.getDocuments() != null) {
-            workshopModel.setDocuments(workshop.getDocuments());
-        }
-        workshopMongoRepository.save(workshopModel);
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(workshop.getId()));
+        Update update = new Update();
+        System.out.println(update);
+        update.set("username", workshop.getUsername());
+        update.set("title", workshop.getTitle());
+        update.set("courseCode", workshop.getCourseCode());
+        update.set("venue", workshop.getVenue());
+        update.set("date", workshop.getDate());
+        update.set("startingTime", workshop.getStartingTime());
+        update.set("endTime", workshop.getEndTime());
+        update.set("description", workshop.getDescription());
+        update.set("documents", workshop.getDocuments());
+        mongoTemplate.findAndModify(query, update, WorkshopModel.class);
+
+
+
 
         return workshop;
     }
