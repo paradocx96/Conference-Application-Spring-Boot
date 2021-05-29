@@ -1,16 +1,16 @@
 package com.rhna.conference.dal.adapter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rhna.conference.RhnaConferenceBackendApplicationTests;
 import com.rhna.conference.dal.model.WorkshopModel;
 import com.rhna.conference.dal.repository.WorkshopMongoRepository;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-public class WorkshopAdapterMongoImplTest {
+public class WorkshopAdapterMongoImplTest extends RhnaConferenceBackendApplicationTests {
 
     @InjectMocks
     @Autowired
@@ -18,6 +18,9 @@ public class WorkshopAdapterMongoImplTest {
 
     @Autowired
     WorkshopMongoRepository workshopMongoRepository;
+
+    @Autowired
+    MongoTemplate mongoTemplate;
 
     @BeforeEach
     void setUp() {
@@ -56,13 +59,13 @@ public class WorkshopAdapterMongoImplTest {
                 "    \"hasDocuments\": false\n" +
                 "}\n" +
                 "]";
-        try{
-            WorkshopModel workshopModels[] = new ObjectMapper().readValue(workshopList, WorkshopModel[].class);
-            for (WorkshopModel workshopModel1: workshopModels){
+        try {
+            WorkshopModel[] workshopModels = new ObjectMapper().readValue(workshopList, WorkshopModel[].class);
+            for (WorkshopModel workshopModel1 : workshopModels) {
                 workshopMongoRepository.save(workshopModel1);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -72,7 +75,11 @@ public class WorkshopAdapterMongoImplTest {
     }
 
 
+
     @Test
-    void getAll() {
+    void approve() {
+        WorkshopAdapterMongoImpl workshopAdapterMongo = new WorkshopAdapterMongoImpl(workshopMongoRepository, mongoTemplate);
+        Object result = workshopAdapterMongo.approve("workshopId_01");
+        Assertions.assertEquals(result, "Approved");
     }
 }
