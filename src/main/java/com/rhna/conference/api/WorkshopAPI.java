@@ -27,8 +27,8 @@ public class WorkshopAPI {
         return workshopDataAdapter.getAll();
     }
 
-    public HttpEntity<byte[]> getWorkshopDocumentsByUser(String username){
-        return workshopDataAdapter.getFileByUsername(username);
+    public HttpEntity<byte[]> getWorkshopDocumentsByWorkshopId(String id){
+        return workshopDataAdapter.getFileById(id);
     }
 
     public Workshop updateWorkshop(Workshop workshop) {

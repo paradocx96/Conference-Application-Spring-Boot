@@ -10,7 +10,7 @@ public interface WorkshopDataAdapter {
 
     List<Workshop> getAll();
 
-    HttpEntity<byte[]> getFileByUsername(String username);
+    HttpEntity<byte[]> getFileById(String username);
 
     Workshop update(Workshop workshop);
 

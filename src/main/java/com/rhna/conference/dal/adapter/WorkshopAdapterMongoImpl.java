@@ -70,7 +70,7 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
     }
 
     @Override
-    public HttpEntity<byte[]> getFileByUsername(String id) {
+    public HttpEntity<byte[]> getFileById(String id) {
         Optional<WorkshopModel> workshopModel;
         workshopModel = workshopMongoRepository.findById(id);
         Binary documents = workshopModel.get().getDocuments();
