@@ -13,6 +13,8 @@ public class Workshop {
     private String endTime;
     private String description;
     private Binary documents;
+    private Boolean isPublished;
+    private Boolean hasDocuments;
 
     public String getId() {
         return id;
@@ -94,10 +96,27 @@ public class Workshop {
         this.documents = documents;
     }
 
+    public Boolean getIsPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(Boolean published) {
+        isPublished = published;
+    }
+
+    public Boolean getHasDocuments() {
+        return hasDocuments;
+    }
+
+    public void setHasDocuments(Boolean hasDocuments) {
+        this.hasDocuments = hasDocuments;
+    }
+
     @Override
     public String toString() {
         return "Workshop{" +
-                "username='" + username + '\'' +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", courseCode='" + courseCode + '\'' +
                 ", venue='" + venue + '\'' +
@@ -106,6 +125,8 @@ public class Workshop {
                 ", endTime='" + endTime + '\'' +
                 ", description='" + description + '\'' +
                 ", documents=" + documents +
+                ", isPublished=" + isPublished +
+                ", hasDocuments=" + hasDocuments +
                 '}';
     }
 }

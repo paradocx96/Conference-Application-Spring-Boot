@@ -62,7 +62,9 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
             workshop.setStartingTime(workshopModel.getStartingTime());
             workshop.setEndTime(workshopModel.getEndTime());
             workshop.setDescription(workshopModel.getDescription());
-            workshop.setDocuments(workshopModel.getDocuments());
+            workshop.setDocuments(null);  // Do not send documents. only pass has or hasn't status.
+            workshop.setIsPublished(workshopModel.getPublished());
+            workshop.setHasDocuments(workshopModel.getHasDocuments());
             workshops.add(workshop);
         }
         return workshops;
@@ -97,7 +99,6 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
 
     @Override
     public Workshop update(Workshop workshop) {
-
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(workshop.getId()));
         Update update = new Update();
@@ -111,9 +112,11 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
         update.set("endTime", workshop.getEndTime());
         update.set("description", workshop.getDescription());
         update.set("documents", workshop.getDocuments());
+        update.set("isPublished", false); // After update it can't publish without review.
+        if (workshop.getDocuments() != null) {
+            update.set("hasDocuments", true);
+        }
         mongoTemplate.findAndModify(query, update, WorkshopModel.class);
-
-
 
 
         return workshop;

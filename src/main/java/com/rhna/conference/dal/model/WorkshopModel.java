@@ -4,6 +4,8 @@ import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Arrays;
+
 @Document("workshop")
 public class WorkshopModel {
 
@@ -18,6 +20,8 @@ public class WorkshopModel {
     private String endTime;
     private String description;
     private Binary documents;
+    private Boolean isPublished;
+    private Boolean hasDocuments;
 
     public WorkshopModel(String username, String title, String courseCode, String venue, String date,
                          String startingTime, String endTime, String description, Binary documents) {
@@ -30,6 +34,8 @@ public class WorkshopModel {
         this.endTime = endTime;
         this.description = description;
         this.documents = documents;
+        this.isPublished = false;
+        this.hasDocuments = documents.length() > 1;
     }
 
     public WorkshopModel() { }
@@ -114,10 +120,27 @@ public class WorkshopModel {
         this.documents = documents;
     }
 
+    public Boolean getPublished() {
+        return isPublished;
+    }
+
+    public void setPublished(Boolean published) {
+        isPublished = published;
+    }
+
+    public Boolean getHasDocuments() {
+        return hasDocuments;
+    }
+
+    public void setHasDocuments(Boolean hasDocuments) {
+        this.hasDocuments = hasDocuments;
+    }
+
     @Override
     public String toString() {
         return "WorkshopModel{" +
-                "username='" + username + '\'' +
+                "id='" + id + '\'' +
+                ", username='" + username + '\'' +
                 ", title='" + title + '\'' +
                 ", courseCode='" + courseCode + '\'' +
                 ", venue='" + venue + '\'' +
@@ -126,6 +149,8 @@ public class WorkshopModel {
                 ", endTime='" + endTime + '\'' +
                 ", description='" + description + '\'' +
                 ", documents=" + documents +
+                ", isPublished=" + isPublished +
+                ", hasDocuments=" + hasDocuments +
                 '}';
     }
 }
