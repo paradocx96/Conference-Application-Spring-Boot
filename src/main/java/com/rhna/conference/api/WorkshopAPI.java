@@ -35,4 +35,20 @@ public class WorkshopAPI {
         workshop = workshopDataAdapter.update(workshop);
         return workshop;
     }
+
+    public List<Workshop> getPendingWorkshops() {
+        return workshopDataAdapter.getAllPending();
+    }
+
+    public List<Workshop> getAllScheduledWorkshops() {
+        return workshopDataAdapter.getAllScheduled();
+    }
+
+    public String getDeleteWorkshopById(String id) {
+        return workshopDataAdapter.delete(id);
+    }
+
+    public String getApproveWorkshopById(String id) {
+        return workshopDataAdapter.approve(id);
+    }
 }

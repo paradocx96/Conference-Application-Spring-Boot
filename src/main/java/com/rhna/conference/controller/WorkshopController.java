@@ -105,7 +105,7 @@ public class WorkshopController {
      * @return
      */
     @PostMapping(value = "/delete")
-    public HttpEntity<byte[]> getDeleteWorkshopById(@RequestParam("id") String id) {
+    public String getDeleteWorkshopById(@RequestParam("id") String id) {
         return workshopAPI.getDeleteWorkshopById(id);
     }
 
@@ -170,7 +170,7 @@ public class WorkshopController {
      * @return
      */
     @PostMapping(value = "/approve")
-    public HttpEntity<byte[]> getApproveWorkshopById(@RequestParam("id") String id) {
+    public String getApproveWorkshopById(@RequestParam("id") String id) {
         return workshopAPI.getApproveWorkshopById(id);
     }
 

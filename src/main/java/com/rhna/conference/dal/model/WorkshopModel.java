@@ -34,7 +34,7 @@ public class WorkshopModel {
         this.endTime = endTime;
         this.description = description;
         this.documents = documents;
-        this.isPublished = false;
+        this.isPublished = false;  // New workshop need to approve by reviewer
         this.hasDocuments = documents.length() > 1;
     }
 

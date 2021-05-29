@@ -13,4 +13,12 @@ public interface WorkshopDataAdapter {
     HttpEntity<byte[]> getFileByUsername(String username);
 
     Workshop update(Workshop workshop);
+
+    List<Workshop> getAllPending();
+
+    List<Workshop> getAllScheduled();
+
+    String delete(String id);
+
+    String approve(String id);
 }
