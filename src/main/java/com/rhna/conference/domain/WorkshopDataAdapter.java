@@ -10,4 +10,6 @@ public interface WorkshopDataAdapter {
     List<Workshop> getAll();
 
     HttpEntity<byte[]> getFileByUsername(String username);
+
+    Workshop update(Workshop workshop);
 }

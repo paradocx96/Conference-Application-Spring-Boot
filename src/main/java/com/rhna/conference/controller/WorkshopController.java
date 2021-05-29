@@ -61,4 +61,29 @@ public class WorkshopController {
     public HttpEntity<byte[]> getResearchPaperFileByUsername(@RequestParam("username") String username) {
         return workshopAPI.getWorkshopDocumentsByUser(username);
     }
+
+    @PutMapping(value = "/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Workshop updateWorkshop(
+            @RequestParam("username") String username,
+            @RequestParam("title") String title,
+            @RequestParam("courseCode") String courseCode,
+            @RequestParam("venue") String venue,
+            @RequestParam("date") String date,
+            @RequestParam("startingTime") String startingTime,
+            @RequestParam("endTime") String endTime,
+            @RequestParam("description") String description,
+            @RequestParam("documents") MultipartFile multipartFile) throws IOException {
+        Workshop workshop = new Workshop();
+        workshop.setUsername(username);
+        workshop.setTitle(title);
+        workshop.setCourseCode(courseCode);
+        workshop.setVenue(venue);
+        workshop.setDate(date);
+        workshop.setStartingTime(startingTime);
+        workshop.setEndTime(endTime);
+        workshop.setDescription(description);
+        workshop.setDocuments(new Binary(BsonBinarySubType.BINARY, multipartFile.getBytes()));
+        return workshopAPI.updateWorkshop(workshop);
+    }
 }

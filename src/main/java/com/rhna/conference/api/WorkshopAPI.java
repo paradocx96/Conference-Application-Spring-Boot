@@ -30,4 +30,9 @@ public class WorkshopAPI {
     public HttpEntity<byte[]> getWorkshopDocumentsByUser(String username){
         return workshopDataAdapter.getFileByUsername(username);
     }
+
+    public Workshop updateWorkshop(Workshop workshop) {
+        workshop = workshopDataAdapter.update(workshop);
+        return workshop;
+    }
 }

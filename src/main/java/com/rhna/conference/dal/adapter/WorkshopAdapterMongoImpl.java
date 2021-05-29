@@ -86,4 +86,12 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
             return null;
         }
     }
+
+    @Override
+    public Workshop update(Workshop workshop) {
+        WorkshopModel workshopModel;
+        workshopModel = workshopMongoRepository.findByTitle(workshop.getTitle());
+
+        return workshop;
+    }
 }
