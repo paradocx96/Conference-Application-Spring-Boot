@@ -3,6 +3,7 @@ package com.rhna.conference.domain;
 import org.bson.types.Binary;
 
 public class Workshop {
+    private String id;
     private String username;
     private String title;
     private String courseCode;
@@ -12,6 +13,14 @@ public class Workshop {
     private String endTime;
     private String description;
     private Binary documents;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

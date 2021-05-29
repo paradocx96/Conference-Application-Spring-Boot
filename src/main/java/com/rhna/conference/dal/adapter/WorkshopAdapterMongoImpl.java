@@ -46,6 +46,7 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
         List<Workshop> workshops = new ArrayList<>();
         for (WorkshopModel workshopModel : workshopModelList) {
             Workshop workshop = new Workshop();
+            workshop.setId(workshopModel.getId());
             workshop.setUsername(workshopModel.getUsername());
             workshop.setTitle(workshopModel.getTitle());
             workshop.setCourseCode(workshopModel.getCourseCode());
@@ -90,7 +91,19 @@ public class WorkshopAdapterMongoImpl implements WorkshopDataAdapter {
     @Override
     public Workshop update(Workshop workshop) {
         WorkshopModel workshopModel;
-        workshopModel = workshopMongoRepository.findByTitle(workshop.getTitle());
+        workshopModel = workshopMongoRepository.findByTitle(workshop.getId());
+        workshopModel.setUsername(workshop.getUsername());
+        workshopModel.setTitle(workshop.getTitle());
+        workshopModel.setCourseCode(workshop.getCourseCode());
+        workshopModel.setVenue(workshop.getVenue());
+        workshopModel.setDate(workshop.getDate());
+        workshopModel.setStartingTime(workshop.getStartingTime());
+        workshopModel.setEndTime(workshop.getEndTime());
+        workshopModel.setDescription(workshop.getDescription());
+        if (workshop.getDocuments() != null) {
+            workshopModel.setDocuments(workshop.getDocuments());
+        }
+        workshopMongoRepository.save(workshopModel);
 
         return workshop;
     }

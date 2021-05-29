@@ -1,10 +1,14 @@
 package com.rhna.conference.dal.model;
 
 import org.bson.types.Binary;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("workshop")
 public class WorkshopModel {
+
+    @Id
+    private String id;
     private String username;
     private String title;
     private String courseCode;
@@ -28,7 +32,14 @@ public class WorkshopModel {
         this.documents = documents;
     }
 
-    public WorkshopModel() {
+    public WorkshopModel() { }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
