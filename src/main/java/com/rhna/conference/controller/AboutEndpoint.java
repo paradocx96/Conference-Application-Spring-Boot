@@ -24,41 +24,54 @@ public class AboutEndpoint {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public About saveAboutDetails(@RequestBody AboutDto aboutDto) {
+        // Create about object
         About about = new About();
+
+        // Set values to about object
         about.setDescription(aboutDto.getDescription());
         about.setVenue(aboutDto.getVenue());
         about.setDate(aboutDto.getDate());
 
+        // Calling saveAbout method
         return api.saveAbout(about);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public About updateById(@RequestBody AboutDto aboutDto, @PathVariable String id) {
+        // Creating about object
         About about = new About();
+
+        // Assign about id getting from path variable
         about.setId(id);
+
+        // Set values to about object
         about.setDescription(aboutDto.getDescription());
         about.setVenue(aboutDto.getVenue());
         about.setDate(aboutDto.getDate());
 
+        // Calling updateAbout method
         return api.updateAbout(about);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<About> getAllAbout() {
+        // Calling getAllAbout method and requesting array list
         return api.getAllAbout();
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<About> getById(@PathVariable String id) {
+        // Calling get by id method using parameter as path variable id
         return api.getByIdAbout(id);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String id) {
+        // Getting id as parameter and calling delete method
         api.deleteByIdAbout(id);
     }
 

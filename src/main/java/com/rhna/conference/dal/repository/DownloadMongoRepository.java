@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface DownloadMongoRepository extends MongoRepository<DownloadModel,String>{
 
+    // Find by Status method
     List<DownloadModel> findByStatus(String status);
 }
