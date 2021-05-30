@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface KeyNoteDataAdapter {
-	
+
+	// Save Keynote Method
 	KeyNote save(KeyNote keyNote);
 
 	List<KeyNote> getAll();
