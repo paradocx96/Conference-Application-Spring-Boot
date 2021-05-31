@@ -3,17 +3,14 @@ package com.rhna.conference.api;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 
 import com.rhna.conference.dal.model.ERole;
 import com.rhna.conference.dal.model.Role;
@@ -23,14 +20,9 @@ import com.rhna.conference.dal.repository.UserMongoRepository;
 import com.rhna.conference.dto.MessageResponseDto;
 import com.rhna.conference.dto.UserRegisterDto;
 
-
-
-@CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
-@RequestMapping("/api")
-public class UserController {
+@Service
+public class UserApi {
 	
-
 	@Autowired
 	UserMongoRepository userRepository;
 
@@ -40,10 +32,16 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
-
-	@PostMapping("/signup")
+	
 	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException{
 		
+		if (userRepository.existsByUsername(userRegister.getUsername())) {
+			return ResponseEntity.badRequest().body(new MessageResponseDto("Username is already taken!"));
+		}
+
+		if (userRepository.existsByEmail(userRegister.getEmail())) {
+			return ResponseEntity.badRequest().body(new MessageResponseDto("Email is already taken!"));
+		}
 		
 		//This is for check the program display correct values or not
 		System.out.println(userRegister.getUsername());
@@ -65,7 +63,7 @@ public class UserController {
 		Set<Role> roles = new HashSet<>();
 
 	
-			//Check user is buyer or seller
+			//Check user role and assigned
 		if(userRegister.getUserType().equals("user")) {
 				
 				//If it is true, Add ROLE_USER to that user
@@ -105,4 +103,5 @@ public class UserController {
 		return ResponseEntity.ok(new MessageResponseDto("User registered successfully!"));
 	}
 	
+
 }
