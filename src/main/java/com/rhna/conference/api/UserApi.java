@@ -56,11 +56,6 @@ public class UserApi {
 		System.out.println(userRegister.getUserType());
 		
 		
-		//send email to user
-		emailSender.setEmail(userRegister.getEmail());
-		emailSender.setUsername(userRegister.getUsername());
-		emailSender.sendEmail();
-		
 		// Create new user's account
 		User user = new User(userRegister.getUsername(),
 							 userRegister.getContactNo(),
@@ -81,7 +76,7 @@ public class UserApi {
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 				roles.add(userRole);
 				
-			}else if(userRegister.getUserType().equals("reviwer")){
+			}else if(userRegister.getUserType().equals("researcher")){
 				
 				//If it is false, Add ROLE_REVIEWER to that user
 				Role reviewerRole = roleRepository.findByName(ERole.ROLE_REVIEWER)
@@ -102,6 +97,12 @@ public class UserApi {
 					}
 			
 	
+		//send email to user
+		emailSender.setEmail(userRegister.getEmail());
+		emailSender.setUsername(userRegister.getUsername());
+		emailSender.sendEmail();
+				
+		
 		//set all roles to user object
 		user.setRoles(roles);
 		
