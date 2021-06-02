@@ -71,7 +71,7 @@ public class UserApi {
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 				roles.add(userRole);
 				
-			}else if(userRegister.getUserType().equals("reviwer")){
+			}else if(userRegister.getUserType().equals("researcher")){
 				
 				//If it is false, Add ROLE_REVIEWER to that user
 				Role reviewerRole = roleRepository.findByName(ERole.ROLE_REVIEWER)
