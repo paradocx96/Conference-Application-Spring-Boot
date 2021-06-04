@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rhna.conference.api.UserApi;
+import com.rhna.conference.dto.UserLoginDto;
 import com.rhna.conference.dto.UserRegisterDto;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -29,5 +30,10 @@ public class UserEndpoint {
 		return userApi.registerUser(userRegister);	
 	}
 	
+	@PostMapping("/signin")
+	public ResponseEntity<?> userLogin(@Valid @RequestBody UserLoginDto userLoginDto){
+		return userApi.authUserLogin(userLoginDto);
+		
+	}
 
 }
