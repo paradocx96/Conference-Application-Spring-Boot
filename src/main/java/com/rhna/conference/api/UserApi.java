@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rhna.conference.dal.model.ERole;
+import com.rhna.conference.dal.model.EmailSender;
 import com.rhna.conference.dal.model.Role;
 import com.rhna.conference.dal.model.User;
 import com.rhna.conference.dal.repository.RoleMongoRepository;
@@ -32,8 +34,11 @@ public class UserApi {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	@Autowired
+	EmailSender emailSender;
 	
-	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException{
+	
+	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException{
 		
 		if (userRepository.existsByUsername(userRegister.getUsername())) {
 			return ResponseEntity.badRequest().body(new MessageResponseDto("Username is already taken!"));
@@ -92,6 +97,12 @@ public class UserApi {
 					}
 			
 	
+		//send email to user
+		emailSender.setEmail(userRegister.getEmail());
+		emailSender.setUsername(userRegister.getUsername());
+		emailSender.sendEmail();
+				
+		
 		//set all roles to user object
 		user.setRoles(roles);
 		
