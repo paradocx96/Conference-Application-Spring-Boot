@@ -26,10 +26,11 @@ import com.rhna.conference.dal.model.Role;
 import com.rhna.conference.dal.model.User;
 import com.rhna.conference.dal.repository.RoleMongoRepository;
 import com.rhna.conference.dal.repository.UserMongoRepository;
+import com.rhna.conference.dto.JwtResponseDto;
 import com.rhna.conference.dto.MessageResponseDto;
 import com.rhna.conference.dto.UserLoginDto;
 import com.rhna.conference.dto.UserRegisterDto;
-
+import com.rhna.conference.security.jwt.JwtUtils;
 
 @Service
 public class UserApi {
@@ -48,7 +49,9 @@ public class UserApi {
 	
 	@Autowired
 	AuthenticationManager authenticationManager;
-
+	
+	@Autowired
+	JwtUtils jwtUtils;
 	
 	//User registration method
 	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException{
@@ -142,6 +145,9 @@ public class UserApi {
 		//Set above assigned user credentials using Authentication object
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
+		//After that create new JWT Token for that person
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		
 		//Then get authentication principles and set that UserDetailimpl object 
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();	
 		
@@ -153,10 +159,15 @@ public class UserApi {
 		//This is for check the program display correct values or not
 		System.out.println(userDetails.getUsername());
 		System.out.println(userDetails.getPassword());
+		System.out.println(jwt);
 		System.out.println(roles.toString());
 
 		//Return JWT response to FrontEnd
-		return ResponseEntity.ok(new MessageResponseDto("Login Successfully!"));
+		return ResponseEntity.ok(new JwtResponseDto(jwt, 
+												 	userDetails.getId(), 
+												 	userDetails.getUsername(), 
+												 	userDetails.getEmail(), 
+												 	roles));
 	}
 	
 	
