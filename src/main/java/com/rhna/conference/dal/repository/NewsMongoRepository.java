@@ -9,5 +9,6 @@ import java.util.List;
 @Repository
 public interface NewsMongoRepository extends MongoRepository<NewsModel, String> {
 
+    // Find by Status method
     List<NewsModel> findByStatus(String status);
 }
