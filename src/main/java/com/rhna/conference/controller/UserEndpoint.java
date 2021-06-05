@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +26,12 @@ public class UserEndpoint {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> userRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException {
+		return userApi.registerUser(userRegister);	
+	}
+	
+	@PostMapping("/backend-signup")
+	//@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> backendUserRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException {
 		return userApi.registerUser(userRegister);	
 	}
 	
