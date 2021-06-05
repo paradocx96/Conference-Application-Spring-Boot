@@ -83,12 +83,6 @@ public class UserApi {
 		//Create new HashSet to store user Roles
 		Set<Role> roles = new HashSet<>();
 
-	
-		//Added admin role to access all user role
-		Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN).orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-		roles.add(adminRole);
-				
-		
 			//Check user role and assigned
 		if(userRegister.getUserType().equals("user")) {
 				
