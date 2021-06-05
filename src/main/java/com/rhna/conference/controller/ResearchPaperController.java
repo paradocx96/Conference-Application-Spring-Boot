@@ -22,7 +22,7 @@ import com.rhna.conference.api.ResearchPaperAPI;
 import com.rhna.conference.domain.ResearchPaper;
 
 @RestController
-@RequestMapping("researchpaper/")
+@RequestMapping("/researchpaper/")
 @CrossOrigin(origins ="*",allowedHeaders = "*",exposedHeaders = "*")
 public class ResearchPaperController {
 	
