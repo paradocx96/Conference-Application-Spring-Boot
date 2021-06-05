@@ -84,32 +84,44 @@ public class UserApi {
 		Set<Role> roles = new HashSet<>();
 
 			//Check user role and assigned
-		if(userRegister.getUserType().equals("user")) {
+		if(userRegister.getUserType().equals("attendee")) {
 				
 				//If it is true, Add ROLE_USER to that user
 				Role userRole = roleRepository.findByName(ERole.ROLE_USER)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 				roles.add(userRole);
 				
-			}else if(userRegister.getUserType().equals("researcher")){
+			}else if(userRegister.getUserType().equals("researcher")) {
 				
-				//If it is false, Add ROLE_REVIEWER to that user
-				Role reviewerRole = roleRepository.findByName(ERole.ROLE_REVIEWER)
+				Role researcherRole = roleRepository.findByName(ERole.ROLE_USER_RESEARCHER)
 						.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-				roles.add(reviewerRole);
+				roles.add(researcherRole);
 				
-				}else if(userRegister.getUserType().equals("workshop")){
-				
-					//If it is false, Add ROLE_EDITOR to that user
-					Role editorRole = roleRepository.findByName(ERole.ROLE_EDITOR)
-							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-					roles.add(editorRole);	
+				}else if(userRegister.getUserType().equals("workshop")) {
 					
-					}else {
+					Role workshopRole = roleRepository.findByName(ERole.ROLE_USER_WORKSHOP)
+							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+					roles.add(workshopRole);
+					
+					}else if(userRegister.getUserType().equals("reviewer")){
 						
-						return ResponseEntity.badRequest().body(new MessageResponseDto("Please select valid role!"));
+						//If it is false, Add ROLE_REVIEWER to that user
+						Role reviewerRole = roleRepository.findByName(ERole.ROLE_REVIEWER)
+								.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+						roles.add(reviewerRole);
 						
-					}
+						}else if(userRegister.getUserType().equals("editor")){
+						
+							//If it is false, Add ROLE_EDITOR to that user
+							Role editorRole = roleRepository.findByName(ERole.ROLE_EDITOR)
+									.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+							roles.add(editorRole);	
+							
+							}else {
+								
+								return ResponseEntity.badRequest().body(new MessageResponseDto("Please select valid role!"));
+								
+							}
 			
 	
 		//send email to user
