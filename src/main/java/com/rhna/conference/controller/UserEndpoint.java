@@ -33,7 +33,13 @@ public class UserEndpoint {
 	
 	@PostMapping("/backend-signup")
 	//@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> backendUserRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException {
+	public ResponseEntity<?> backendUserRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException {
 		return userApi.registerUser(userRegister);	
+	}
+	
+	@PostMapping("/signin")
+	public ResponseEntity<?> userLogin(@Valid @RequestBody UserLoginDto userLogin){
+		return userApi.authUserLogin(userLogin);
+		
 	}
 }
