@@ -2,6 +2,7 @@ package com.rhna.conference.controller;
 
 import java.io.UnsupportedEncodingException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rhna.conference.api.UserApi;
+import com.rhna.conference.dto.UserLoginDto;
 import com.rhna.conference.dto.UserRegisterDto;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -25,7 +27,7 @@ public class UserEndpoint {
 	UserApi userApi;
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> userRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException {
+	public ResponseEntity<?> userRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException {
 		return userApi.registerUser(userRegister);	
 	}
 	
@@ -34,6 +36,4 @@ public class UserEndpoint {
 	public ResponseEntity<?> backendUserRegister(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException {
 		return userApi.registerUser(userRegister);	
 	}
-	
-
 }

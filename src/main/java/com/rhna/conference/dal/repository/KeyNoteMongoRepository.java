@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface KeyNoteMongoRepository extends MongoRepository<KeyNoteModel, String>{
 
+    // Find by Status method
     List<KeyNoteModel> findByStatus(String status);
 }
