@@ -63,6 +63,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/**").permitAll()
+			
+			//research paper access control
+			.antMatchers("/researchpaper/upload/").permitAll()
+			.antMatchers("/researchpaper/downloadByUsername").permitAll()
+			.antMatchers("/researchpaper/downloadById").permitAll()
+			.antMatchers("/researchpaper/getResearchPaperDetailsByUsername/**").permitAll()
+			.antMatchers("/researchpaper/getAllResearchpapers").permitAll()
+			.antMatchers("/researchpaper/updateStatus").permitAll()
+			.antMatchers("/researchpaper/updateFile").permitAll()
+			.antMatchers("/researchpaper/deletePaper/**").hasAnyRole("ADMIN")
+			
 			.anyRequest().authenticated();
 			
 		   
