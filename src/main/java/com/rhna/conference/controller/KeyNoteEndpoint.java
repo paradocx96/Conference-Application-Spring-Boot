@@ -22,7 +22,7 @@ public class KeyNoteEndpoint {
         this.keyNoteApi = keyNoteApi;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public KeyNote addKeyNote(@RequestBody KeyNoteDto keyNoteDto) {
         // Create keynote object
@@ -40,19 +40,19 @@ public class KeyNoteEndpoint {
         return keyNoteApi.addKeyNote(keyNote);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<KeyNote> getKeyNotes(){
         return keyNoteApi.getKeyNotes();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteKeyNoteById(@PathVariable String id) {
         // Getting id as parameter and calling delete method
         keyNoteApi.deleteKeyNote(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     public KeyNote updateKeyNote(@RequestBody KeyNoteDto keyNoteDto, @PathVariable String id) {
         // Creating keynote object

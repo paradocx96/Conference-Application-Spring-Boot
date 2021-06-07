@@ -91,6 +91,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/download/download-id/**").permitAll()
 			.antMatchers("/download/get-by-status/**").permitAll()
 
+			// Keynote Access Control
+			.antMatchers("/keynote/add").permitAll()
+			.antMatchers("/keynote/get").permitAll()
+			.antMatchers("/keynote/delete/**").permitAll()
+			.antMatchers("/keynote/update/**").permitAll()
+			.antMatchers("/keynote/get-by-id/**").permitAll()
+			.antMatchers("/keynote/get-by-status/**").permitAll()
+			.antMatchers("/keynote/update-status/**").permitAll()
+
 			.anyRequest().authenticated();
 			
 		   
