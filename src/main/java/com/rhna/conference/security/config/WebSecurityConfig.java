@@ -100,6 +100,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/keynote/get-by-status/**").permitAll()
 			.antMatchers("/keynote/update-status/**").permitAll()
 
+			// News Access Control
+			.antMatchers("/news/add").permitAll()
+			.antMatchers("/news/get").permitAll()
+			.antMatchers("/news/delete/**").permitAll()
+			.antMatchers("/news/update/**").permitAll()
+			.antMatchers("/news/update-status/**").permitAll()
+			.antMatchers("/news/get-by-status/**").permitAll()
+			.antMatchers("/news/get-by-id/**").permitAll()
+
 			.anyRequest().authenticated();
 			
 		   

@@ -22,7 +22,7 @@ public class NewsEndpoint {
         this.newsApi = newsApi;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public News addNews(@RequestBody NewsDto newsDto) {
         // Create news object
@@ -38,19 +38,19 @@ public class NewsEndpoint {
         return newsApi.addNews(news);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     public List<News> getNewses() {
         return newsApi.getNewses();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteNewsById(@PathVariable String id) {
         // Getting id as parameter and calling delete method
         newsApi.deleteNewsById(id);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     public News updateNews(@RequestBody NewsDto newsDto, @PathVariable String id) {
         // Creating news object
@@ -69,7 +69,7 @@ public class NewsEndpoint {
         return newsApi.updateNews(news);
     }
 
-    @PutMapping("/updateStatus/{id}")
+    @PutMapping("/update-status/{id}")
     @ResponseStatus(HttpStatus.OK)
     public News updateNewsStatus(@RequestBody NewsDto newsDto, @PathVariable String id) {
         // Creating news object
