@@ -75,37 +75,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/researchpaper/deletePaper/**").hasAnyRole("ADMIN")
 
 			// About Access Control
-			.antMatchers("/about/add").permitAll()
+			.antMatchers("/about/add").hasAnyRole("ADMIN")
 			.antMatchers("/about/get").permitAll()
-			.antMatchers("/about/delete/**").permitAll()
-			.antMatchers("/about/update/**").permitAll()
-			.antMatchers("/about/get-id/**").permitAll()
+			.antMatchers("/about/delete/**").hasAnyRole("ADMIN")
+			.antMatchers("/about/update/**").hasAnyRole("ADMIN")
+			.antMatchers("/about/get-id/**").hasAnyRole("ADMIN")
 
 			// Download Access Control
 			.antMatchers("/download/add").permitAll()
 			.antMatchers("/download/get").permitAll()
-			.antMatchers("/download/update-status").permitAll()
+			.antMatchers("/download/update-status").hasAnyRole("ADMIN")
 			.antMatchers("/download/download-id-param").permitAll()
 			.antMatchers("/download/update-file").permitAll()
-			.antMatchers("/download/delete/**").permitAll()
+			.antMatchers("/download/delete/**").hasAnyRole("ADMIN")
 			.antMatchers("/download/download-id/**").permitAll()
 			.antMatchers("/download/get-by-status/**").permitAll()
 
 			// Keynote Access Control
 			.antMatchers("/keynote/add").permitAll()
 			.antMatchers("/keynote/get").permitAll()
-			.antMatchers("/keynote/delete/**").permitAll()
+			.antMatchers("/keynote/delete/**").hasAnyRole("ADMIN")
 			.antMatchers("/keynote/update/**").permitAll()
 			.antMatchers("/keynote/get-by-id/**").permitAll()
 			.antMatchers("/keynote/get-by-status/**").permitAll()
-			.antMatchers("/keynote/update-status/**").permitAll()
+			.antMatchers("/keynote/update-status/**").hasAnyRole("ADMIN")
 
 			// News Access Control
 			.antMatchers("/news/add").permitAll()
 			.antMatchers("/news/get").permitAll()
-			.antMatchers("/news/delete/**").permitAll()
+			.antMatchers("/news/delete/**").hasAnyRole("ADMIN")
 			.antMatchers("/news/update/**").permitAll()
-			.antMatchers("/news/update-status/**").permitAll()
+			.antMatchers("/news/update-status/**").hasAnyRole("ADMIN")
 			.antMatchers("/news/get-by-status/**").permitAll()
 			.antMatchers("/news/get-by-id/**").permitAll()
 
