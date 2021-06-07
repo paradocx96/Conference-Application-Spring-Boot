@@ -23,7 +23,7 @@ public class DownloadEndpoint {
         this.api = api;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public String addDownload(@RequestParam("file") MultipartFile multipartFile,
                               @RequestParam("name") String name,
@@ -35,7 +35,7 @@ public class DownloadEndpoint {
         return ID;
     }
 
-    @GetMapping
+    @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
     public List<Download> getAllDownloads() {
         // Calling get All method
@@ -50,7 +50,7 @@ public class DownloadEndpoint {
         return api.updateStatus(id, status);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteFileById(@PathVariable String id) {
         // Getting id as parameter and calling delete method
@@ -75,7 +75,7 @@ public class DownloadEndpoint {
         return api.getByStatus(status);
     }
 
-    @PutMapping(value = "/update-file")
+    @PutMapping("/update-file")
     public Download updateFileById(@RequestParam("file") MultipartFile multipartFile,
                                    @RequestParam("id") String id,
                                    @RequestParam("name") String name,
