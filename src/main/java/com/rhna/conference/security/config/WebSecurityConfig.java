@@ -66,12 +66,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			
 			//research paper access control
 			.antMatchers("/researchpaper/upload/").permitAll()
-			.antMatchers("/researchpaper/downloadByUsername").permitAll()
-			.antMatchers("/researchpaper/downloadById").permitAll()
-			.antMatchers("/researchpaper/getResearchPaperDetailsByUsername/**").permitAll()
-			.antMatchers("/researchpaper/getAllResearchpapers").permitAll()
-			.antMatchers("/researchpaper/updateStatus").permitAll()
-			.antMatchers("/researchpaper/updateFile").permitAll()
+			.antMatchers("/researchpaper/downloadByUsername").hasAnyRole("ADMIN","REVIEWER")
+			.antMatchers("/researchpaper/downloadById").hasAnyRole("ADMIN","REVIEWER")
+			.antMatchers("/researchpaper/getResearchPaperDetailsByUsername/**").hasAnyRole("ADMIN","REVIEWER","USER_RESEARCHER")
+			.antMatchers("/researchpaper/getAllResearchpapers").hasAnyRole("ADMIN","REVIEWER")
+			.antMatchers("/researchpaper/updateStatus").hasAnyRole("ADMIN", "REVIEWER")
+			.antMatchers("/researchpaper/updateFile").hasAnyRole("ADMIN","USER_RESEARCHER")
 			.antMatchers("/researchpaper/deletePaper/**").hasAnyRole("ADMIN")
 
 			// About Access Control
