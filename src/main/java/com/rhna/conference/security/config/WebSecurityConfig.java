@@ -80,7 +80,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/about/delete/**").permitAll()
 			.antMatchers("/about/update/**").permitAll()
 			.antMatchers("/about/get-id/**").permitAll()
-			
+
+			// Download Access Control
+			.antMatchers("/download/add").permitAll()
+			.antMatchers("/download/get").permitAll()
+			.antMatchers("/download/update-status").permitAll()
+			.antMatchers("/download/download-id-param").permitAll()
+			.antMatchers("/download/update-file").permitAll()
+			.antMatchers("/download/delete/**").permitAll()
+			.antMatchers("/download/download-id/**").permitAll()
+			.antMatchers("/download/get-by-status/**").permitAll()
+
 			.anyRequest().authenticated();
 			
 		   
