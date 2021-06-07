@@ -73,6 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/researchpaper/updateStatus").permitAll()
 			.antMatchers("/researchpaper/updateFile").permitAll()
 			.antMatchers("/researchpaper/deletePaper/**").hasAnyRole("ADMIN")
+
+			// About Access Control
+			.antMatchers("/about/add").permitAll()
+			.antMatchers("/about/get").permitAll()
+			.antMatchers("/about/delete/**").permitAll()
+			.antMatchers("/about/update/**").permitAll()
+			.antMatchers("/about/get-id/**").permitAll()
 			
 			.anyRequest().authenticated();
 			

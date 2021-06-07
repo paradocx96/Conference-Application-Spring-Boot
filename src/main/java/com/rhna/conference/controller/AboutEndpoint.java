@@ -21,7 +21,7 @@ public class AboutEndpoint {
         this.api = api;
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public About saveAboutDetails(@RequestBody AboutDto aboutDto) {
         // Create about object
@@ -36,7 +36,7 @@ public class AboutEndpoint {
         return api.saveAbout(about);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     @ResponseStatus(HttpStatus.OK)
     public About updateById(@RequestBody AboutDto aboutDto, @PathVariable String id) {
         // Creating about object
@@ -54,21 +54,21 @@ public class AboutEndpoint {
         return api.updateAbout(about);
     }
 
-    @GetMapping
+    @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
     public List<About> getAllAbout() {
         // Calling getAllAbout method and requesting array list
         return api.getAllAbout();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-id/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<About> getById(@PathVariable String id) {
         // Calling get by id method using parameter as path variable id
         return api.getByIdAbout(id);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String id) {
         // Getting id as parameter and calling delete method
