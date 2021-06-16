@@ -117,7 +117,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/workshop/download-documents").permitAll()
 			.antMatchers("/workshop/all-workshops").hasAnyRole("ADMIN")
 			.antMatchers("/workshop/scheduled-workshops").permitAll()
-			.antMatchers("/workshop/add").hasAnyRole("WORKSHOP_CONDUCTOR")
+			.antMatchers("/workshop/add").hasAnyRole("USER_WORKSHOP")
 
 			.anyRequest().authenticated();
 			
