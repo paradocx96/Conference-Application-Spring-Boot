@@ -41,7 +41,7 @@ public class WorkshopController {
      * @return
      * @throws IOException
      */
-    @PostMapping
+    @PostMapping(value = "/add")
     @ResponseStatus(HttpStatus.CREATED)
     public Workshop addWorkshop(
             @RequestParam("username") String username,
@@ -81,7 +81,7 @@ public class WorkshopController {
      * View all workshops
      * @return
      */
-    @GetMapping
+    @GetMapping(value = "/all-workshops")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Workshop> getAllWorkshops() {
         return workshopAPI.getAllWorkshops();
@@ -154,7 +154,7 @@ public class WorkshopController {
 
 
     /**
-     * Show pending workshops
+     * Show pending workshops - Reviewer only
       * @return
      */
     @GetMapping(value = "/pending-workshops")
@@ -165,7 +165,7 @@ public class WorkshopController {
 
 
     /**
-     * Approve the workshop
+     * Approve the workshop - Reviewer only
      * @param id
      * @return
      */

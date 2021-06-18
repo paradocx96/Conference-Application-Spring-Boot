@@ -109,6 +109,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/news/get-by-status/**").permitAll()
 			.antMatchers("/news/get-by-id/**").permitAll()
 
+             // News Access Control
+			.antMatchers("/workshop/pending-workshops").hasAnyRole( "REVIEWER")
+			.antMatchers("/workshop/approve").hasAnyRole( "REVIEWER")
+			.antMatchers("/workshop/update").hasAnyRole( "ADMIN", "REVIEWER") //Reschedule approved / pending workshop
+			.antMatchers("/workshop/delete").hasAnyRole("ADMIN")
+			.antMatchers("/workshop/download-documents").permitAll()
+			.antMatchers("/workshop/all-workshops").hasAnyRole("ADMIN")
+			.antMatchers("/workshop/scheduled-workshops").permitAll()
+			.antMatchers("/workshop/add").hasAnyRole("USER_WORKSHOP")
+
 			.anyRequest().authenticated();
 			
 		   
