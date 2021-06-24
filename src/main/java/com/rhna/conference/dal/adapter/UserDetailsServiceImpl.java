@@ -1,5 +1,8 @@
 package com.rhna.conference.dal.adapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,4 +30,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 
+	public List<User> getAllUserDetails() {
+		// TODO Auto-generated method stub
+		return new ArrayList<>(userRepository.findAll());
+	}
+
+	
 }

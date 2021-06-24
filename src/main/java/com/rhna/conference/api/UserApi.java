@@ -1,6 +1,7 @@
 package com.rhna.conference.api;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rhna.conference.dal.adapter.UserDetailsImpl;
+import com.rhna.conference.dal.adapter.UserDetailsServiceImpl;
 import com.rhna.conference.dal.model.ERole;
 import com.rhna.conference.dal.model.EmailSender;
 import com.rhna.conference.dal.model.Role;
@@ -52,6 +54,9 @@ public class UserApi {
 	
 	@Autowired
 	JwtUtils jwtUtils;
+	
+	@Autowired
+	UserDetailsServiceImpl userDetailsServiceImpl;
 	
 	//User registration method
 	public ResponseEntity<?> registerUser(@Valid @RequestBody UserRegisterDto userRegister) throws UnsupportedEncodingException, MessagingException{
@@ -176,6 +181,9 @@ public class UserApi {
 												 	roles));
 	}
 	
+	public List<User> getAllUserDetails(){
+		 return new ArrayList<>(userDetailsServiceImpl.getAllUserDetails());
+	}
 	
 
 }
