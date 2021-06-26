@@ -1,3 +1,7 @@
+//Name : Malwatta H.G.
+//ID : IT19240848
+//Group : REG_WE_03
+
 package com.rhna.conference.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			//All Permit Access Control
 			.antMatchers("/api/signup").permitAll()
 			.antMatchers("/api/signin").permitAll()
+			
+			//Internal user registration access control
+			.antMatchers("/backend-signup").hasAnyRole("ADMIN")
 			
 			//View All User Details Access Control
 			.antMatchers("/api/get-all-users").hasRole("ADMIN")

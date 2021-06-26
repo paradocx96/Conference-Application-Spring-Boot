@@ -1,3 +1,7 @@
+//Name : Malwatta H.G.
+//ID : IT19240848
+//Group : REG_WE_03
+
 package com.rhna.conference.dal.model;
 
 //Create enum class to create instance of each enum constants
