@@ -1,3 +1,7 @@
+//Name : Malwatta H.G.
+//ID : IT19240848
+//Group : REG_WE_03
+
 package com.rhna.conference.dal.model;
 
 import java.io.UnsupportedEncodingException;
@@ -61,7 +65,7 @@ public class EmailSender {
 		 helper.setSubject(subject);
 			
 		 content = content.replace("[[name]]", getUsername());
-		 String verifyURL = "http://localhost:1234/sign-in";
+		 String verifyURL = "https://icaf-codewave-backend-api.herokuapp.com/sign-in";
 		 content = content.replace("[[URL]]", verifyURL);
 		 helper.setText(content, true);
 			
