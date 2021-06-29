@@ -25,9 +25,9 @@ import com.rhna.conference.dal.model.User;
 import com.rhna.conference.dto.UserLoginDto;
 import com.rhna.conference.dto.UserRegisterDto;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*",exposedHeaders = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/")
 public class UserEndpoint {
 	
 	@Autowired
