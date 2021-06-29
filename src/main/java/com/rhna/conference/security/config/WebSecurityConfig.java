@@ -24,7 +24,7 @@ import com.rhna.conference.security.jwt.AuthTokenFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
 	UserDetailsServiceImpl userDetailsServiceImpl;
 
@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		authenticationManagerBuilder.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
 	}
 
-	//Return authentication Manager Bean and call parent class method 
+	//Return authentication Manager Bean and call parent class method
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/**").permitAll()
-			
+
 			//research paper access control
 			.antMatchers("/researchpaper/upload/").permitAll()
 			.antMatchers("/researchpaper/downloadByUsername").hasAnyRole("ADMIN","REVIEWER")
@@ -117,11 +117,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/workshop/download-documents").permitAll()
 			.antMatchers("/workshop/all-workshops").hasAnyRole("ADMIN")
 			.antMatchers("/workshop/scheduled-workshops").permitAll()
-			.antMatchers("/workshop/add").hasAnyRole("USER_WORKSHOP")
+			.antMatchers("/workshop/add").permitAll()
+//			.antMatchers("/workshop/add").hasAnyRole("USER_WORKSHOP")
 
 			.anyRequest().authenticated();
-			
-		   
+
+
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }
