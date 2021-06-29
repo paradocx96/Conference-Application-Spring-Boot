@@ -1,4 +1,11 @@
+//Name : Malwatta H.G.
+//ID : IT19240848
+//Group : REG_WE_03
+
 package com.rhna.conference.dal.adapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,4 +34,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 
+	public List<User> getAllUserDetails() {
+		// TODO Auto-generated method stub
+		return new ArrayList<>(userRepository.findAll());
+	}
+
+	
 }
