@@ -94,7 +94,7 @@ public class WorkshopController {
      * @return
      */
     @PostMapping(value = "/download-documents")
-    public HttpEntity<byte[]> getResearchPaperFileByWorkshopId(@RequestParam("id") String id) {
+    public HttpEntity<byte[]> getWorkshopDocsByWorkshopId(@RequestParam("id") String id) {
         return workshopAPI.getWorkshopDocumentsByWorkshopId(id);
     }
 
