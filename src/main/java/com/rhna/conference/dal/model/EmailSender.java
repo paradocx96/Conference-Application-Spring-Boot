@@ -65,7 +65,7 @@ public class EmailSender {
 		 helper.setSubject(subject);
 			
 		 content = content.replace("[[name]]", getUsername());
-		 String verifyURL = "https://icaf-codewave-backend-api.herokuapp.com/sign-in";
+		 String verifyURL = "https://deploymentv2.dyz7y76o29wov.amplifyapp.com/sign-in";
 		 content = content.replace("[[URL]]", verifyURL);
 		 helper.setText(content, true);
 			
