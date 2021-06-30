@@ -3,7 +3,7 @@
 
 ## Deployment
 
-**AWS Amplify** : _https://icaf-codewave-backend-api.herokuapp.com_
+**Heroku** : _https://icaf-codewave-backend-api.herokuapp.com_
 
 ## Git Guide  
 <details> 
