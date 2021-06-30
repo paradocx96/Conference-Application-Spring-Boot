@@ -1,42 +1,42 @@
-# Conference-Application-Spring-Boot
-## AF Project Back-End
+# ICAF - 2021
+## Application Frameworks Project - Backend  
 
 ## Git Guide  
 
-### > Git Clone  
+**Git Clone**  
 git clone https://github.com/paradocx96/Conference-Application-Spring-Boot.git  
 cd Conference-Application-Spring-Boot  
 
-### > Create a Branch and Commit from that Branch  
+**Create a Branch and Commit from that Branch**  
 git checkout -b BranchName  
 git add .  
 git commit -m "Commit Message"  
 git branch -M BranchName  
 git push -u origin BranchName  
   
-### > After Time  
+**After Time**  
 git add .  
 git commit -m "Commit Message"  
 git branch -M BranchName  
 git push -u origin BranchName
 
-### > Check available Branches  
+**Check available Branches**  
 git branch  
 
-### > Switch between Branches  
+**Switch between Branches**  
 git checkout BranchName  
 
-### > Create New Branch  
+**Create New Branch**  
 git checkout -b BranchName  
 
-### > Update current Branch  
+**Update current Branch**  
 git pull  
 
-### > Check commit history  
+**Check commit history**  
 git log  
 
-### > Check availability for commit  
+**Check availability for commit**  
 git status  
 
-### > Check Git Repository Details  
+**Check Git Repository Details**  
 git remote show origin  
