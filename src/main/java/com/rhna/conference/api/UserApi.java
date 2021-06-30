@@ -134,9 +134,9 @@ public class UserApi {
 			
 	
 		//send email to user
-		//emailSender.setEmail(userRegister.getEmail());
-		//emailSender.setUsername(userRegister.getUsername());
-		//emailSender.sendEmail();
+		emailSender.setEmail(userRegister.getEmail());
+		emailSender.setUsername(userRegister.getUsername());
+		emailSender.sendEmail();
 			
 		
 		//set all roles to user object
